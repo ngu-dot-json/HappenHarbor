@@ -1,5 +1,14 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
+
+      <a href="#" class="navbar-brand">
+        <!-- Logo Image -->
+        <img src="{% static 'logo.png' %}" width="40" alt="" class="d-inline-block align-middle mr-2">
+        <!-- Logo Text -->
+        <span class="text-uppercase font-weight-bold">Brand Name</span>
+      </a>
+    
+
       <a class="navbar-brand" href="{% url 'home' %}">HappenHarbor</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -10,7 +19,6 @@
           <li class="nav-item">
             <a class="nav-link" href="{% url 'home' '2023' 'March'%}">March</a>
           </li>
-
 
           <!-- Dropdown for later use-->
           <!-- <li class="nav-item dropdown">
@@ -27,10 +35,13 @@
         
         
         </ul>
-        <form class="d-flex">
+
+        <!-- SEARCH BAR -->
+        <!-- <form class="d-flex">
           <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
           <button class="btn btn-outline-success" type="submit">Search</button>
-        </form>
+        </form> -->
+
       </div>
     </div>
   </nav>
