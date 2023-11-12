@@ -4,8 +4,8 @@ from calendar import HTMLCalendar
 from datetime import datetime
 
 
-
-def home(request, year, month):
+# shows default current month and year calendar
+def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     name = "John"
     month = month.title() # Make first letter capital
 
@@ -22,9 +22,8 @@ def home(request, year, month):
     # get current time -- NOT MST MAYBE GWT?
     curr_time = now.strftime('%I:%M %p')
 
-
     return render(request,           
-        'home.html', {
+        'events/home.html', {
             "name": name,
             "year": year,
             "month": month,

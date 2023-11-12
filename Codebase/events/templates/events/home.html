@@ -1,0 +1,19 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+    <center>
+        <h1>Hello {{ name }}! Events For {{ month }} {{ year }}</h1>
+
+        As of {{ curr_time }}
+        <br/><br/>
+
+        <!-- Calendar print out, Safe filter so it shows up in HTML code-->
+        {{ cal|safe }} 
+
+        <br/><br/><br/><br/>
+        Copyright HappenHarbor (c) {{ curr_year }}
+    </center>
+
+
+{% endblock %}

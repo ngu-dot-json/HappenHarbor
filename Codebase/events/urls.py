@@ -9,7 +9,6 @@ urlpatterns = [
     # slug: hyphen-and_underscore stuff
     # UUID: universually unique identifier
 
-    # path('', views.home, name="home"), # point to home function in views.py
-
+    path('', views.home, name="home"), # point to home function in views.py
     path('<int:year>/<str:month>/', views.home, name="home"),
 ]
