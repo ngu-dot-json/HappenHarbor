@@ -2,6 +2,19 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from .models import Event
+
+
+# Import data from Django Database
+def all_events(request):
+    event_list = Event.objects.all()
+
+    return render(request, 'events/event_list.html',
+        {'event_list': event_list
+         
+         })
+
+
 
 
 # shows default current month and year calendar
