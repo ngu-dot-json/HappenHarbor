@@ -45,3 +45,4 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
             "curr_year": curr_year,
             "curr_time": curr_time,
         })
+        
