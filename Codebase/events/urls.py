@@ -11,4 +11,6 @@ urlpatterns = [
 
     path('', views.home, name="home"), # point to home function in views.py
     path('<int:year>/<str:month>/', views.home, name="home"),
+    path('events', views.all_events, name="list-events"),
+    path('about', views.about, name="about"),
 ]
