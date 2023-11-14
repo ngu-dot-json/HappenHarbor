@@ -2,6 +2,28 @@ from django.shortcuts import render
 import calendar
 from calendar import HTMLCalendar
 from datetime import datetime
+from .models import Event
+
+
+
+def about(request):
+    foo = "bar"
+
+    return render(request, 'events/about.html', {})
+
+
+
+
+
+
+# Import data from Django Database
+def all_events(request):
+    event_list = Event.objects.all()
+
+    return render(request, 'events/event_list.html',
+        {'event_list': event_list
+         
+         })
 
 
 # shows default current month and year calendar
@@ -11,6 +33,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
 
     #convert month from name to num
     month_num = int(list(calendar.month_name).index(month))
+    # month_num = 12
 
     # create a cealendar
     cal = HTMLCalendar().formatmonth(int(year), month_num)
