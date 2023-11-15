@@ -4,15 +4,10 @@ from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Event
 
-
-
 def about(request):
     foo = "bar"
 
     return render(request, 'events/about.html', {})
-
-
-
 
 
 
@@ -26,14 +21,20 @@ def all_events(request):
          })
 
 
+def home(request):
+    foo = "bar"
+
+    return render(request, 'events/home.html', {})
+
+
 # shows default current month and year calendar
-def home(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
+def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
     name = "John"
     month = month.title() # Make first letter capital
 
     #convert month from name to num
-    month_num = int(list(calendar.month_name).index(month))
-    # month_num = 12
+    #month_num = int(list(calendar.month_name).index(month))
+    month_num = 12
 
     # create a cealendar
     cal = HTMLCalendar().formatmonth(int(year), month_num)
@@ -46,7 +47,7 @@ def home(request, year=datetime.now().year, month=datetime.now().strftime('%B'))
     curr_time = now.strftime('%I:%M %p')
 
     return render(request,           
-        'events/home.html', {
+        'events/calendar.html', {
             "name": name,
             "year": year,
             "month": month,
