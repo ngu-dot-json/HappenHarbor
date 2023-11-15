@@ -57,11 +57,26 @@ body {
     font-weight: 600;
     transition: 0.8s;
 }
-  
+
 .content h2:hover{
-    -webkit-text-stroke: 2px #fff;
-    color: transparent;
-    transition: 0.8s;
+  -webkit-text-stroke: 2px #fff;
+  color: transparent;
+  transition: 0.8s;
+}
+
+/* .content h4:hover{
+  -webkit-text-stroke: 2px #fff;
+  color: transparent;
+  transition: 0.8s;
+} */
+
+.content h4{
+font-size: 20px;
+/* color: #a60fae; */
+/* -webkit-text-stroke: 1px #b666ba; */
+color: #ffffff;
+font-weight: 500;
+transition: 0.8s;
 }
 
 .content a{
