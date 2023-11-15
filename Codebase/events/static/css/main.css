@@ -79,6 +79,15 @@ font-weight: 500;
 transition: 0.8s;
 }
 
+.content h3{
+  font-size: 32px;
+  color: #ffffff;
+  font-weight: 500;
+  transition: 0.8s;
+  }
+  
+
+
 .content a{
     text-decoration: none;
     display: inline-block;
@@ -89,8 +98,8 @@ transition: 0.8s;
     border-radius: 50px;
     margin-top: 20px;
     transition: 0.8s;
-
 }
+
 
 .content a:hover{
     color: #a60fae;
