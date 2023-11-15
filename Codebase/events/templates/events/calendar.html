@@ -1,7 +1,6 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
-<h1>CALENDAR </h1>
     <center class="HTMLCal">
         <h1>Hello {{ name }}! Events For {{ month }} {{ year }}</h1>
 
@@ -10,9 +9,6 @@
 
         <!-- Calendar print out, Safe filter so it shows up in HTML code-->
         {{ cal|safe }} 
-
-        <br/><br/><br/><br/>
-        Copyright HappenHarbor (c) {{ curr_year }}
     </center>
 
 
