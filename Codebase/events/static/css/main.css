@@ -18,7 +18,7 @@ body {
     /* Set the fixed height of the footer here */
     height: 40px;
     line-height: 40px; /* Vertically center the text there */
-    background-color: #17141f;
+    /* background-color: #17141f; */
   }
   
 .text-muted {
@@ -43,13 +43,17 @@ body {
   }
   
 .content h1:hover{
-    -webkit-text-stroke: 2px #a60fae;
+    /* -webkit-text-stroke: 2px #a60fae; */
+    -webkit-text-stroke: 2px #ffffff;
     color: transparent;
+    transition: 0.8s;
   }
   
 .content h2{
     font-size: 40px;
-    color: #a60fae;
+    /* color: #a60fae; */
+    /* -webkit-text-stroke: 1px #b666ba; */
+    color: #fa9dff;
     font-weight: 600;
     transition: 0.8s;
 }
@@ -57,7 +61,8 @@ body {
 .content h2:hover{
     -webkit-text-stroke: 2px #fff;
     color: transparent;
-  }
+    transition: 0.8s;
+}
 
 .content a{
     text-decoration: none;
@@ -75,8 +80,27 @@ body {
 .content a:hover{
     color: #a60fae;
     border: 2px solid #a60fae;
+    transition: 0.8s;
 }
   
+.NaviBar {
+  background-color: #17141f;
+  color:#17141f;
+}
+
+#bgImg {
+  position: relative;
+  top: -2px;;
+  width: max-content ;
+  height: max-content;
+}
+
+
+nav {
+  /* background-color: green; */
+  position: sticky;
+
+}
 
 .card h1{
     background-color: green;

@@ -34,7 +34,7 @@ def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%
 
     #convert month from name to num
     #month_num = int(list(calendar.month_name).index(month))
-    month_num = 12
+    month_num = 11
 
     # create a cealendar
     cal = HTMLCalendar().formatmonth(int(year), month_num)
