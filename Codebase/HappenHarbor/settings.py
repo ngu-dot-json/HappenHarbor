@@ -82,10 +82,10 @@ WSGI_APPLICATION = 'HappenHarbor.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'sample',
-        'USER': 'root',
-        'PASSWORD': '',
-        'HOST': '127.0.0.1',  # or the hostname where your MySQL server is running
+        'NAME': 'freedb_HappenHarborSQLDB',
+        'USER': 'freedb_HHadmin',
+        'PASSWORD': '4e!8k*Ea*yUZMUU',
+        'HOST': 'sql.freedb.tech',  # or the hostname where your MySQL server is running
         'PORT': '3306',      # or the port on which your MySQL server is listening
     }
 }
