@@ -9,6 +9,11 @@ def about(request):
 
     return render(request, 'events/about.html', {})
 
+def account(request):
+    foo = "bar"
+
+    return render(request, 'events/account.html', {})
+
 
 
 # Import data from Django Database
@@ -25,6 +30,9 @@ def home(request):
     foo = "bar"
 
     return render(request, 'events/home.html', {})
+
+
+
 
 
 # shows default current month and year calendar
