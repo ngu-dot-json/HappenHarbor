@@ -15,6 +15,7 @@ urlpatterns = [
     path('events', views.all_events, name="list-events"),
     path('about', views.about, name="about"),
     path('account', views.account, name="account"),
+    path('groups', views.groups, name="groups"),
 
     path('admin/', admin.site.urls),
     path('signin/',views.signin, name='signin'),

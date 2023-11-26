@@ -37,6 +37,11 @@ def home(request):
     return render(request, 'events/home.html', {})
 
 
+def groups(request):
+    foo = "bar"
+
+    return render(request, 'events/groups.html', {})
+
 
 
 
@@ -90,6 +95,7 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'signup.html', {'form': form})
   
+
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'home.html')
