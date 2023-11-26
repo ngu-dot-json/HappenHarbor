@@ -90,15 +90,15 @@ def signup(request):
             login(request, user)
             return redirect('/')
         else:
-            return render(request, 'signup.html', {'form': form})
+            return render(request, 'events/signup.html', {'form': form})
     else:
         form = UserCreationForm()
-        return render(request, 'signup.html', {'form': form})
+        return render(request, 'events/signup.html', {'form': form})
   
 
 def signin(request):
     if request.user.is_authenticated:
-        return render(request, 'home.html')
+        return render(request, 'events/home.html')
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
@@ -109,13 +109,13 @@ def signin(request):
         else:
             msg = 'Error Login'
             form = AuthenticationForm(request.POST)
-            return render(request, 'login.html', {'form': form, 'msg': msg})
+            return render(request, 'events/login.html', {'form': form, 'msg': msg})
     else:
         form = AuthenticationForm()
-        return render(request, 'login.html', {'form': form})
+        return render(request, 'events/login.html', {'form': form})
   
 def profile(request): 
-    return render(request, 'profile.html')
+    return render(request, 'events/profile.html')
    
 def signout(request):
     logout(request)
