@@ -107,10 +107,10 @@ def signin(request):
         else:
             msg = 'Error Login'
             form = AuthenticationForm(request.POST)
-            return render(request, 'events/login.html', {'form': form, 'msg': msg})
+            return render(request, 'events/signin.html', {'form': form, 'msg': msg})
     else:
         form = AuthenticationForm()
-        return render(request, 'events/login.html', {'form': form})
+        return render(request, 'events/signin.html', {'form': form})
   
 
 
