@@ -135,7 +135,9 @@ nav {
     color: #ffffffc9;
 }
 
-
+.welcome h2 {
+  color: #ffffffc9;
+}
 
   
   
@@ -155,4 +157,4 @@ nav {
     code {
       font-size: 80%;
     }
-    
+  
