@@ -1,16 +1,17 @@
 {% extends 'events/base.html' %}
 
 {% block content %}
-<!-- <img id="bgImg" src="static/HH2.png" alt="my image"/> -->
 
-  <center class="HH">
+  <div class="HH2">
+  <center class="HH2">
     <style>
         body {
             background-image: url('../../static/HF169.png');
         }
     </style>
 
-    <h2>Sign up</h2>
+    <h2 className="tester">Sign up</h2>
+
     <form method="post">
       {% csrf_token %}
       {% for field in form %}
@@ -22,8 +23,11 @@
           {% endfor %}
         </p>
       {% endfor %}
-      <button type="submit" class="btn btn-success">Sign up</button>
+      <b>
+        <button type="submit" className="button" class="btn btn-success">Sign up</button>
+      </b>
     </form>
-</center>
+  </center>
+  </div>
 
 {% endblock %}

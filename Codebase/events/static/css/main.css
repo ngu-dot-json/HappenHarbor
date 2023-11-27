@@ -86,8 +86,6 @@ transition: 0.8s;
   transition: 0.8s;
   }
   
-
-
 .content a{
     text-decoration: none;
     display: inline-block;
@@ -99,8 +97,6 @@ transition: 0.8s;
     margin-top: 20px;
     transition: 0.8s;
 }
-
-
 .content a:hover{
     color: #a60fae;
     border: 2px solid #a60fae;
@@ -118,7 +114,6 @@ transition: 0.8s;
   width: max-content ;
   height: max-content;
 }
-
 
 nav {
   /* background-color: green; */
@@ -139,7 +134,38 @@ nav {
   color: #ffffffc9;
 }
 
-  
+.button {
+  color:#a60fae;
+  background-color: blue;
+}  
+
+.HH2 {
+  color: #fff;
+  font-size: 20px;}
+
+.content b{
+  text-decoration: none;
+  display: inline-block;
+  color: #fff;
+  font-size: 20px;
+  border: 2px solid #fff;
+  padding: 10px 40px;
+  border-radius: 50px;
+  margin-top: 20px;
+  transition: 0.8s;
+}
+.content b:hover{
+  color: #a60fae;
+  border: 2px solid #a60fae;
+  transition: 0.8s;
+}
+
+tester {
+  color: #fff;
+  font-size: 20px;}
+
+
+
   
     /* Custom page CSS
     -------------------------------------------------- */
