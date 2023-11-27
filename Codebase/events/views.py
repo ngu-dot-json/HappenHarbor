@@ -93,15 +93,8 @@ def signup(request):
     else:
         form = UserCreationForm()
         return render(request, 'events/signup.html', {'form': form})
-  
-
 
 def signin(request):
-    foo = "bar"
-    return render(request, 'events/signin.html', {})
-
-
-def signin2(request):
     if request.user.is_authenticated:
         return render(request, 'events/home.html')
     if request.method == 'POST':
@@ -119,6 +112,8 @@ def signin2(request):
         form = AuthenticationForm()
         return render(request, 'events/login.html', {'form': form})
   
+
+
 
 def profile(request): 
     return render(request, 'events/profile.html')
