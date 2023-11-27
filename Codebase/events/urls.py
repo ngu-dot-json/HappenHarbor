@@ -17,8 +17,8 @@ urlpatterns = [
     path('account', views.account, name="account"),
     path('groups', views.groups, name="groups"),
     # path('admin', admin.site.urls),
-    path('signin',views.signin, name='signin'),
-    path('signout',views.signout, name='signout'),
-    path('signup',views.signup, name='signup'),
-    path('profile',views.profile, name='profile'), 
+    path('signin/',views.signin, name='signin'),
+    path('signout/',views.signout, name='signout'),
+    path('signup/',views.signup, name='signup'),
+    path('profile/',views.profile, name='profile'), 
 ]
