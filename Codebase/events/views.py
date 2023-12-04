@@ -1,4 +1,5 @@
-import calendar
+# The default sign in, sign out and register system was adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag
+
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Event
@@ -73,8 +74,6 @@ def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%
             "curr_year": curr_year,
             "curr_time": curr_time,
         })
-
-
 
 def signup(request):
     if request.user.is_authenticated:

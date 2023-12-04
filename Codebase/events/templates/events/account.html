@@ -1,3 +1,5 @@
+<!-- The folllowing code is adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag-->
+
 {% extends 'events/base.html' %}
   
 {% block title %}Login{% endblock %}
@@ -14,7 +16,8 @@
     <div class="content">
         <h2 class="welcome" className="WTitle"> Accounts</h2>
         {% if user.is_authenticated %}
-            Hi {{ user.username }}!
+            <c className="texts">Hi {{ user.username }}!</c>
+            <br/>
             <a href="signout" class="btn btn-danger">Logout</a>
         {% else %}
             <h4> You are currently not logged in</h4>
