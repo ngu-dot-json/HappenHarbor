@@ -11,6 +11,14 @@
   }
 </style>
 
+<style>
+  .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+</style>
+
   <center class="HH2">
     <h2>Find Events</h2>
     <br/>
@@ -21,17 +29,20 @@
 
 <!-- Add the following code at the top of your HTML template, above the existing for loop -->
 
+<div class="center-container">
 <form method="get" action="{% url 'list-events' %}">
-    <input type="text" name="q" placeholder="Search...">
-    <select name="search_field">
+    <input class="dd_text" type="text" name="q" placeholder="Search...">
+    <select class="dd_test" name="search_field">
         <option value="event_name">Event Name</option>
         <option value="venue">Venue</option>
         <option value="manager">Event Manager</option>
         <option value="event_date">Event Date</option>
     </select>
-    <button type="submit">Search</button>
+    <button class="btn-lg btn-primary" type="submit">Search</button>
 </form>
+</div>
 
+<br/>
 <!-- Your existing for loop goes here -->
 
 {% for event in event_list %}

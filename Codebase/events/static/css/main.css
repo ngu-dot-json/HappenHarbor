@@ -238,6 +238,28 @@ tester {
 
 /* -------------------------------------------------- */
 
+.dd_test {
+  /* color: #ba6fc3; */
+  color: white;
+  font-weight: 500;
+  height: 45px;
+  border-radius: 5px;
+  background-color: #9a47a4;
+  border: 2px solid #9a47a4;
+  box-shadow: black 1px 0 10px;
+}
+
+.dd_text {
+  font-weight: 500;
+  height: 45px;
+  width: 350px;
+  border-radius: 5px;
+  border: 2px solid #ba6fc3;
+  box-shadow: black 1px 0 10px;
+}
+
+
+
 
 /* .welcome h2 {
   color: #ffffffc9;
