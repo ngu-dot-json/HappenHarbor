@@ -43,13 +43,20 @@ body {
 }
 
 
-
+.centerboi {
+  font-size: 12px;
+  text-align: center;
+}
 
 .HH2 {
   color:white;
   text-shadow: black 1px 0 10px;
   text-align: center;
 }
+
+.HH2 {
+  color: #fff;
+  font-size: 20px;}
 
 .form-control {
   width: 250px;
@@ -178,13 +185,21 @@ nav {
   position: sticky;
 }
 
-.card h1{
-  background-color: green;
+/* .card h1{
   color: #ffffffc9;
-}
+  font-size: 32px;
+} */
   
 .card-header {
     color: #ffffffc9;
+    background-color: #ba6fc3;
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.card-body {
+  background-color: rgba(166, 15, 174, 0.1);
+  color:#17141f;
 }
 
 .welcome h2 {
@@ -195,9 +210,6 @@ nav {
   color:#a60fae;
 }  
 
-.HH2 {
-  color: #fff;
-  font-size: 20px;}
 
 .content c {
   color:white;

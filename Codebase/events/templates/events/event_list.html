@@ -2,6 +2,7 @@
 {% load static %}
 
 {% block content %}
+  <>
 <style>
   body {
       background-image: url('static/HF169.png');
@@ -15,36 +16,32 @@
     <h2>Events and and spaghetti</h2>
     <br/>
 
+  </center>
     <!-- OLD FOR LOOP FOR SQLLITE DATABASE STUFF -->
     {% for event in event_list %}
 
     <div class="card">
         <div class="card-header">
-          {{ event }}
+          ({{ event.manager }}) {{ event }}
         </div>
         <div class="card-body">
-          <h6 class="card-title">Venue: {{ event.venue }}</h6>
+          <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
           <p class="card-text">
 
             <ul>
                 <strong>Date:</strong> {{ event.event_date }}<br/>
-                <strong>Venue Site:</strong> {{ event.venue.web }}<br/>
-                <strong>Manager:</strong> {{ event.manager }}<br/>
+                <strong>Website:</strong> {{ event.event_site }}<br/>
                 <strong>Description:</strong> {{ event.description }}<br/>
                 <strong>Attendees: </strong>
                 <!-- {% for user in event.attendees.all %}
                     {{ user }},
                 {% endfor %} -->
             </ul>
+            <h6 class="centerboi"> Event ID: {{ event.id }} </h6>
           </p>
         </div>
       </div>
     <br/>
     {% endfor %}
-
-
-
-    
-  </center>
-
+  </>
 {% endblock %}
