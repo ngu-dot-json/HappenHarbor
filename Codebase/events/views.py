@@ -63,7 +63,15 @@ def venues(request):
 
     return render(request, 'events/venues.html', {})
 
+def vendors(request):
+    foo = "bar"
 
+    return render(request, 'events/vendors.html', {})
+
+def guests(request):
+    foo = "bar"
+
+    return render(request, 'events/guests.html', {})
 
 
 
