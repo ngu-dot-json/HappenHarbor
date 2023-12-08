@@ -11,6 +11,22 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
 
+from django.contrib.auth.views import PasswordChangeView
+from django.urls import reverse_lazy
+from django.views.generic.edit import UpdateView
+from django.contrib.auth.models import User
+
+class ChangePasswordView(PasswordChangeView):
+    template_name = 'change_password.html'
+    success_url = reverse_lazy('account')  # Update with the name of your account view
+
+class ChangeUsernameView(UpdateView):
+    model = User
+    template_name = 'change_username.html'
+    fields = ['username']
+    success_url = reverse_lazy('account')  # Update with the name of your account view
+
+
 def about(request):
     foo = "bar"
 

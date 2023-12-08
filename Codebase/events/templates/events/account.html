@@ -19,6 +19,10 @@
             <c className="texts">Hi {{ user.username }}!</c>
             <br/>
             <a href="signout" class="btn btn-danger">Logout</a>
+            <br/>
+            <a href="{% url 'change_password' %}" class="btn btn-primary">Change Password</a>
+            <a href="{% url 'change_username' %}" class="btn btn-primary">Change Username</a>
+            <!-- Add more links for other features as needed -->
         {% else %}
             <br/>
             <h4> You are currently not signed in.</h4>
@@ -28,7 +32,8 @@
             <a href="signup/" class="btn btn-primary">Sign Up</a>
         {% endif %}
     </div>
-</center>   
+</center>
+
 
 
 

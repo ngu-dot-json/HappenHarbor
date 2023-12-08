@@ -2,6 +2,10 @@ from django.urls import path
 # from django.contrib import admin
 from . import views
 
+from django.urls import path
+from .views import ChangePasswordView, ChangeUsernameView
+
+
 urlpatterns = [
     # Path Convertors
     # int: numbers
@@ -21,4 +25,8 @@ urlpatterns = [
     path('signout/',views.signout, name='signout'),
     path('signup/',views.signup, name='signup'),
     path('profile/',views.profile, name='profile'), 
+
+    # Other URL patterns
+    path('change_password/', ChangePasswordView.as_view(), name='change_password'),
+    path('change_username/', ChangeUsernameView.as_view(), name='change_username'),
 ]
