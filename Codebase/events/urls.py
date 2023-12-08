@@ -3,7 +3,7 @@ from django.urls import path
 from . import views
 
 from django.urls import path
-from .views import ChangePasswordView, ChangeUsernameView
+# from .views import ChangePasswordView, ChangeUsernameView
 
 
 urlpatterns = [
@@ -30,6 +30,6 @@ urlpatterns = [
     path('guests', views.guests, name='guests'),
 
     # Other URL patterns
-    path('change_password/', ChangePasswordView.as_view(), name='change_password'),
-    path('change_username/', ChangeUsernameView.as_view(), name='change_username'),
+    # path('change_password/', ChangePasswordView.as_view(), name='change_password'),
+    # path('change_username/', ChangeUsernameView.as_view(), name='change_username'),
 ]

@@ -10,32 +10,13 @@ from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
 from django.shortcuts import HttpResponseRedirect
-
-from django.contrib.auth.views import PasswordChangeView
-from django.urls import reverse_lazy
-from django.views.generic.edit import UpdateView
-from django.contrib.auth.models import User
-
-class ChangePasswordView(PasswordChangeView):
-    template_name = 'change_password.html'
-    success_url = reverse_lazy('account')  # Update with the name of your account view
-
-class ChangeUsernameView(UpdateView):
-    model = User
-    template_name = 'change_username.html'
-    fields = ['username']
-    success_url = reverse_lazy('account')  # Update with the name of your account view
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import update_session_auth_hash  # Add this line
+from django.contrib.auth.forms import PasswordChangeForm
+from django.shortcuts import render, redirect
 
 
-def about(request):
-    foo = "bar"
-
-    return render(request, 'events/about.html', {})
-
-def account(request):
-    foo = "bar"
-
-    return render(request, 'events/account.html', {})
 
 
 # Import data from Django Database
@@ -45,12 +26,16 @@ def all_events(request):
     return render(request, 'events/event_list.html',
         {'event_list': event_list
          
-         })
+    })
 
+def about(request):
+    return render(request, 'events/about.html', {})
+
+def account(request):
+    return render(request, 'events/account.html', {})
 
 def home(request):
     return render(request, 'events/home.html', {})
-
 
 def groups(request):
     return render(request, 'events/groups.html', {})
@@ -64,7 +49,9 @@ def guests(request):
 def vendors(request):
     return render(request, 'events/vendors.html', {})
 
-
+def profile(request): 
+    return render(request, 'events/profile.html')
+   
 
 # shows default current month and year calendar
 def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
@@ -125,7 +112,7 @@ def signin(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect('/profile') #profile
+            return redirect('/account') #profile
         else:
             msg = 'Sign In Error'
             form = AuthenticationForm(request.POST)
@@ -134,10 +121,6 @@ def signin(request):
         form = AuthenticationForm()
         return render(request, 'events/signin.html', {'form': form})
   
-
-def profile(request): 
-    return render(request, 'events/profile.html')
-   
 def signout(request):
     logout(request)
     return redirect('/')

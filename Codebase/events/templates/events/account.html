@@ -18,13 +18,15 @@
     <div class="content">
         <h2 class="welcome" className="WTitle"> Accounts</h2>
         {% if user.is_authenticated %}
-            <c className="texts">Hi {{ user.username }}!</c>
+            <c className="">Hi {{ user.username }}!</c>
+
+            <br/>
+            <!-- Add more links for other features as needed -->
+
             <br/>
             <a href="signout" class="btn btn-danger">Logout</a>
             <br/>
-            <a href="{% url 'change_password' %}" class="btn btn-primary">Change Password</a>
-            <a href="{% url 'change_username' %}" class="btn btn-primary">Change Username</a>
-            <!-- Add more links for other features as needed -->
+        
         {% else %}
             <br/>
             <h4> You are currently not signed in.</h4>
