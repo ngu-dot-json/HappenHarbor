@@ -49,29 +49,20 @@ def all_events(request):
 
 
 def home(request):
-    foo = "bar"
     return render(request, 'events/home.html', {})
 
 
 def groups(request):
-    foo = "bar"
-
     return render(request, 'events/groups.html', {})
 
 def venues(request):
-    foo = "bar"
-
     return render(request, 'events/venues.html', {})
 
-def vendors(request):
-    foo = "bar"
-
-    return render(request, 'events/vendors.html', {})
-
 def guests(request):
-    foo = "bar"
-
     return render(request, 'events/guests.html', {})
+
+def vendors(request):
+    return render(request, 'events/vendors.html', {})
 
 
 
