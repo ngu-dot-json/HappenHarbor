@@ -58,6 +58,12 @@ def groups(request):
 
     return render(request, 'events/groups.html', {})
 
+def venues(request):
+    foo = "bar"
+
+    return render(request, 'events/venues.html', {})
+
+
 
 
 
@@ -91,6 +97,7 @@ def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%
             "curr_time": curr_time,
         })
 
+# Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
 def signup(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -109,7 +116,7 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'events/signup.html', {'form': form})
 
-
+# Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'events/home.html')
@@ -128,8 +135,6 @@ def signin(request):
         form = AuthenticationForm()
         return render(request, 'events/signin.html', {'form': form})
   
-
-
 
 def profile(request): 
     return render(request, 'events/profile.html')
