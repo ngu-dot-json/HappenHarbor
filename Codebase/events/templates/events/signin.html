@@ -5,8 +5,9 @@
 {% block title %}Login{% endblock %}
   
 {% block content %}
+<div class="border-box">
   <center class="HH2">
-    <h2>Login</h2> {{ msg }}
+    <h2>Sign In</h2> {{ msg }}
     <br/>
     <style>
       body {
@@ -14,10 +15,27 @@
       }
     </style>
 
+    <!-- Sign In Form-->
     <form method="post">
       {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit" class="btn btn-primary">Login</button>
+      
+      <div class="form-group">
+          <label for="{{ form.username.id_for_label }}">Username:</label>
+          <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" style="width: 250px;" required>
+      </div>
+
+      <br/>
+  
+      <div class="form-group">
+          <label for="{{ form.password.id_for_label }}">Password:</label>
+          <input type="password" name="{{ form.password.name }}" id="{{ form.password.id_for_label }}" class="form-control" style="width: 250px;" required>
+      </div>
+  
+      <br/>
+
+      <button type="submit" class="btn-lg btn-primary">Sign In</button>
     </form>
   </center>
+</div>
+
 {% endblock %}

@@ -93,6 +93,7 @@ def signup(request):
         form = UserCreationForm()
         return render(request, 'events/signup.html', {'form': form})
 
+
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'events/home.html')
@@ -104,7 +105,7 @@ def signin(request):
             login(request, user)
             return redirect('/profile') #profile
         else:
-            msg = 'Error Login'
+            msg = 'Sign In Error'
             form = AuthenticationForm(request.POST)
             return render(request, 'events/signin.html', {'form': form, 'msg': msg})
     else:

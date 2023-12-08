@@ -4,7 +4,7 @@
 
 {% block content %}
 
-  <div class="HH2">
+<div class="border-box-2">
   <center class="HH2">
     <style>
         body {
@@ -14,21 +14,44 @@
 
     <h2 className="tester">Sign up</h2>
 
-    <form method="post">
+    <form method="post" style="text-align: center;">
       {% csrf_token %}
-      {% for field in form %}
-        <p>
-          {{ field.label_tag }}<br>
-          {{ field }}
-          {% for error in field.errors %}
-            <p style="color: red; font-size: 16px">Error: {{ error }}</p>
-          {% endfor %}
-        </p>
-      {% endfor %}
-      <b>
-        <button type="submit" className="button" class="btn btn-success">Sign up</button>
-      </b>
+    
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username:</label>
+        <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" style="width: 250px; margin: 0 auto;" required>
+        {% for error in form.username.errors %}
+          <p style="color: red; font-size: 16px"><br/>Error: {{ error }}</p>
+        {% endfor %}
+      </div>
+    
+      <br/>
+    
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Password:</label>
+        <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="form-control" style="width: 250px; margin: 0 auto;" required>
+        {% for error in form.password1.errors %}
+          <p style="color: red; font-size: 16px">Error: {{ error }}</p>
+        {% endfor %}
+      </div>
+    
+      <br/>
+    
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Confirm Password:</label>
+        <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="form-control" style="width: 250px; margin: 0 auto;" required>
+        {% for error in form.password2.errors %}
+          <p style="color: red; font-size: 16px">Error: {{ error }}</p>
+        {% endfor %}
+      </div>
+    
+      <br/>
+    
+      <button type="submit" class="btn-lg btn-primary">Sign Up</button>
     </form>
+    
+    
+    
   </center>
   </div>
 

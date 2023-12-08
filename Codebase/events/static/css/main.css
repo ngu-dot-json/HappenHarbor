@@ -11,9 +11,48 @@ body {
     background-color: #17141f;
 }
   
+
+.border-box {
+  border: 2px solid #fa9dff;
+  box-shadow: black 1px 0 10px;
+  width: 450px;
+  height: 500px;
+  margin: auto; /* Center horizontally */
+  margin-top: 60px; /* Adjust top margin for vertical centering, consider the height of your navbar */
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.border-box-2 {
+  border: 2px solid #fa9dff;
+  box-shadow: black 1px 0 10px;
+  width: 450px;
+  height: 600px;
+  margin: auto; /* Center horizontally */
+  margin-top: 60px; /* Adjust top margin for vertical centering, consider the height of your navbar */
+  padding: 10px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+
 .HH2 {
   color:white;
   text-shadow: black 1px 0 10px;
+  text-align: center;
+}
+
+.form-control {
+  width: 250px;
 }
 
 .HH2 h2 {
@@ -25,6 +64,22 @@ body {
   -webkit-text-stroke: 2px #fff;
   color: transparent;
   transition: 0.8s;
+}
+
+.btn-primary, .btn-primary:active, .btn-primary:visited {
+  background-color: #ba6fc3 !important;
+  border: 10px;
+  color:white;
+  font-weight: 500;
+  box-shadow: black 1px 0 10px;
+  transition: 0.8s;
+}
+
+.btn-primary:hover {
+  background-color: transparent !important;
+  transition: 0.8s;
+  color: white;
+  border: 2px solid #fff; 
 }
 
 .footer {
@@ -54,9 +109,7 @@ body {
     color: #fff;
     font-weight: 600;
     transition: 0.8s;
-  }
-  
-.content h1:hover{
+  } .content h1:hover{
     -webkit-text-stroke: 2px #ffffff;
     color: transparent;
     transition: 0.8s;
@@ -77,8 +130,6 @@ body {
 
 .content h4{
 font-size: 20px;
-/* color: #a60fae; */
-/* -webkit-text-stroke: 1px #b666ba; */
 color: #ffffff;
 font-weight: 500;
 transition: 0.8s;
@@ -95,10 +146,11 @@ transition: 0.8s;
     text-decoration: none;
     display: inline-block;
     color: #fff;
-    font-size: 20px;
+    font-weight: 500;
+    font-size: 24px;
     border: 2px solid #fff;
     padding: 10px 40px;
-    border-radius: 50px;
+    border-radius: 10px;
     margin-top: 20px;
     transition: 0.8s;
 }
