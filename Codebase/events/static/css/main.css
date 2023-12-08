@@ -122,6 +122,10 @@
     font-weight: 600;
 }
 
+.link {
+  color: blue;
+}
+
 .card-body {
   background-color: #b1c7d5;
   color:#17141f;
