@@ -19,13 +19,25 @@ from django.shortcuts import render, redirect
 
 
 
-# Import data from Django Database
-def all_events(request):
-    event_list = Event.objects.all()
+from django.db.models import Q
 
-    return render(request, 'events/event_list.html',
-        {'event_list': event_list
-})
+def all_events(request):
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'event_name')
+
+    if search_field == 'event_name':
+        event_list = Event.objects.filter(Q(name__icontains=query))
+    elif search_field == 'event_venue':
+        event_list = Event.objects.filter(Q(venue__icontains=query))
+    elif search_field == 'event_manager':
+        event_list = Event.objects.filter(Q(manager__icontains=query))
+    elif search_field == 'event_date':
+        event_list = Event.objects.filter(Q(event_date__icontains=query))
+    else:
+        event_list = Event.objects.all()
+
+    return render(request, 'events/event_list.html', {'event_list': event_list, 'query': query, 'search_field': search_field})
+
 
 def about(request):
     return render(request, 'events/about.html', {})

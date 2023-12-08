@@ -16,31 +16,51 @@
     <br/>
 
   </center>
-    <!-- OLD FOR LOOP FOR SQLLITE DATABASE STUFF -->
-    {% for event in event_list %}
 
+
+
+<!-- Add the following code at the top of your HTML template, above the existing for loop -->
+
+<form method="get" action="{% url 'list-events' %}">
+    <input type="text" name="q" placeholder="Search...">
+    <select name="search_field">
+        <option value="event_name">Event Name</option>
+        <option value="venue">Venue</option>
+        <option value="manager">Event Manager</option>
+        <option value="event_date">Event Date</option>
+    </select>
+    <button type="submit">Search</button>
+</form>
+
+<!-- Your existing for loop goes here -->
+
+{% for event in event_list %}
     <div class="card">
         <div class="card-header">
-          ({{ event.manager }}) {{ event }}
+            ({{ event.manager }}) {{ event }}
         </div>
         <div class="card-body">
-          <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
-          <p class="card-text">
-
-            <ul>
-                <strong>Date:</strong> {{ event.event_date }}<br/>
-                <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
-                <strong>Description:</strong> {{ event.description }}<br/>
-                <strong>Attendees: </strong>
-                <!-- {% for user in event.attendees.all %}
-                    {{ user }},
-                {% endfor %} -->
-            </ul>
-            <h6 class="s_events_id"> Event ID: {{ event.id }} </h6>
-          </p>
+            <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
+            <p class="card-text">
+                <ul>
+                    <strong>Date:</strong> {{ event.event_date }}<br/>
+                    <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
+                    <strong>Description:</strong> {{ event.description }}<br/>
+                    <strong>Attendees: </strong>
+                    <!-- {% for user in event.attendees.all %}
+                        {{ user }},
+                    {% endfor %} -->
+                </ul>
+                <h6 class="s_events_id"> Event ID: {{ event.id }} </h6>
+            </p>
         </div>
-      </div>
+    </div>
     <br/>
-    {% endfor %}
+{% endfor %}
+
+
+
+
+
   </>
 {% endblock %}
