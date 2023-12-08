@@ -14,6 +14,10 @@ from pathlib import Path
 import os
 import pymysql
 
+# at the top of file
+
+import os 
+
 pymysql.install_as_MySQLdb()
 
 
@@ -135,3 +139,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 STATICFILES_DIR = [BASE_DIR / "static"]
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+# At the end of file. add these lines
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+MEDIA_URLS ='/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Also Make aure To set allowed_hosts to '*'
+
+ALLOWED_HOSTS = ['*']
