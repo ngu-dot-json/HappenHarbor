@@ -54,9 +54,9 @@ body {
   text-align: center;
 }
 
-.HH2 {
+/* .HH2 {
   color: #fff;
-  font-size: 20px;}
+  font-size: 20px;} */
 
 .form-control {
   width: 250px;
@@ -192,13 +192,15 @@ nav {
   
 .card-header {
     color: #ffffffc9;
-    background-color: #ba6fc3;
+    background-color: #468bb3;
     font-size: 24px;
     font-weight: 600;
 }
 
 .card-body {
-  background-color: rgba(166, 15, 174, 0.1);
+  /* background-color: rgba(166, 15, 174, 0.3); */
+  /* background-color: #386f83; */
+  background-color: #b1c7d5;
   color:#17141f;
 }
 
