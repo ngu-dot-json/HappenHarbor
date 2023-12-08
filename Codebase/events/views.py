@@ -25,8 +25,7 @@ def all_events(request):
 
     return render(request, 'events/event_list.html',
         {'event_list': event_list
-         
-    })
+})
 
 def about(request):
     return render(request, 'events/about.html', {})
