@@ -26,17 +26,17 @@ def all_events(request):
     search_field = request.GET.get('search_field', 'event_name')
 
     if search_field == 'event_name':
-        event_list = Event.objects.filter(Q(name__icontains=query))
-    elif search_field == 'event_venue':
-        event_list = Event.objects.filter(Q(venue__icontains=query))
-    elif search_field == 'event_manager':
-        event_list = Event.objects.filter(Q(manager__icontains=query))
+        events = Event.objects.filter(Q(name__icontains=query))
+    elif search_field == 'venue':
+        events = Event.objects.filter(Q(venue__name__icontains=query))
+    elif search_field == 'manager':
+        events = Event.objects.filter(Q(manager__icontains=query))
     elif search_field == 'event_date':
-        event_list = Event.objects.filter(Q(event_date__icontains=query))
+        events = Event.objects.filter(Q(event_date__date__icontains=query))
     else:
-        event_list = Event.objects.all()
+        events = Event.objects.all()
 
-    return render(request, 'events/event_list.html', {'event_list': event_list, 'query': query, 'search_field': search_field})
+    return render(request, 'events/event_list.html', {'event_list': events, 'query': query, 'search_field': search_field})
 
 
 def about(request):
