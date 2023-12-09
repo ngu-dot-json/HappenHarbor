@@ -12,13 +12,31 @@ def vendors(request):
     vendors = Vendors.objects.all()
     return render(request, 'events/vendors.html', {'vendors': vendors})
 
-def guests(request):
-    guests = Guest.objects.all()
-    return render(request, 'events/guests.html', {'guests': guests})
+# def guests(request):
+#     guests = Guest.objects.all()
+#     return render(request, 'events/guests.html', {'guests': guests})
 
 def hasGuests(request):
     hasGuests = HasGuests.objects.all()
     return render(request, 'events/guests.html', {'hasGuests': hasGuests})
+
+
+def guests(request):
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'g_name')
+
+    if search_field == 'g_name':
+        guests = Guest.objects.filter(Q(g_name__icontains=query))
+    elif search_field == 'g_type':
+        guests = Guest.objects.filter(Q(g_type__icontains=query))
+    elif search_field == 'attending':
+        guests = Guest.objects.filter(hasguests__event__e_name__icontains=query)
+    else:
+        guests = Guest.objects.all()
+
+    return render(request, 'events/guests.html', {'guests': guests, 'query': query, 'search_field': search_field})
+
+
 
 # CODE FOR SEARCH BAR
 def events(request):
