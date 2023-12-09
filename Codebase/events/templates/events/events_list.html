@@ -1,11 +1,5 @@
 {% extends 'events/base.html' %}
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Events List</title>
-    </head>
 
 {% block content %}
 
@@ -20,20 +14,17 @@
 
         <h2>EVENTS</h2>
 
-        <a>MA LETTUCE</a>
-
         <body>
-            <h1>Events List</h1>
-        
             <ul class="wasdada">        
-                <h1>{{ events.event_id }}</h1>
                 {% for e in events %}
                     <h1>{{ e.event_id }}</h1>
                     <p> {{ e.e_name }} </p>
                 {% endfor %}
             </ul>
         </body>
-        </html>
-    </center>
+x    </center>
 
 {% endblock %}
+
+
+
