@@ -7,6 +7,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
+from django.shortcuts import render, redirect
+from .models import LocationsVenue
+from .forms import VenueForm  # Create a form for adding venues
+
+def add_venue(request):
+    if request.method == 'POST':
+        form = VenueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('venues')  # Redirect to the venue list page after successful submission
+    else:
+        form = VenueForm()
+
+    return render(request, 'events/add_venue.html', {'form': form})
+
+
 def about(request):
     return render(request, 'events/about.html', {})
 

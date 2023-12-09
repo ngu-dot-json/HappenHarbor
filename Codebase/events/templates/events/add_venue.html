@@ -1,0 +1,33 @@
+<!-- add_venue.html -->
+{% extends 'events/base.html' %}
+<!DOCTYPE html>
+
+{% block content %}
+
+    <center class="HH2">
+        <style>
+            body {
+                background-image: url('../../static/HF169.png');
+                background-attachment: fixed;
+                background-size: cover; /* Optional: Adjust the background size as needed */
+            }
+
+            .center-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        </style>
+
+        <h2>Add Venue</h2><br/>
+    </center>
+
+    <div class="center-container">
+        <form method="post" action="">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button class="btn-lg btn-primary" type="submit">Add Venue</button>
+        </form>
+    </div>
+
+{% endblock %}
