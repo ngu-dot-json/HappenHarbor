@@ -7,18 +7,15 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
+def about(request):
+    return render(request, 'events/about.html', {})
 
-# def vendors(request):
-#     vendors = Vendors.objects.all()
-#     return render(request, 'events/vendors.html', {'vendors': vendors})
+def account(request):
+    return render(request, 'events/account.html', {})
 
-# def guests(request):
-#     guests = Guest.objects.all()
-#     return render(request, 'events/guests.html', {'guests': guests})
+def home(request):
+    return render(request, 'events/home.html', {})
 
-def hasGuests(request):
-    hasGuests = HasGuests.objects.all()
-    return render(request, 'events/guests.html', {'hasGuests': hasGuests})
 
 def vendors(request):
     query = request.GET.get('q', '')
@@ -34,6 +31,7 @@ def vendors(request):
         vendors = Vendors.objects.all()
 
     return render(request, 'events/vendors.html', {'vendors': vendors, 'query': query, 'search_field': search_field})
+
 
 def guests(request):
     query = request.GET.get('q', '')
@@ -51,8 +49,6 @@ def guests(request):
     return render(request, 'events/guests.html', {'guests': guests, 'query': query, 'search_field': search_field})
 
 
-
-# CODE FOR SEARCH BAR
 def events(request):
     query = request.GET.get('q', '')
     search_field = request.GET.get('search_field', 'event_name')
@@ -73,24 +69,6 @@ def events(request):
     return render(request, 'events/events.html', {'events': events, 'query': query, 'search_field': search_field})
 
 
-
-
-
-
-
-def about(request):
-    return render(request, 'events/about.html', {})
-
-def account(request):
-    return render(request, 'events/account.html', {})
-
-def home(request):
-    return render(request, 'events/home.html', {})
-
-# def groups(request):
-#     return render(request, 'events/groups.html', {})
-
-
 def groups(request):
     query = request.GET.get('q', '')
     search_field = request.GET.get('search_field', 'ug_name')
@@ -103,8 +81,6 @@ def groups(request):
         usergroups = UserGroups.objects.all()
 
     return render(request, 'events/groups.html', {'usergroups': usergroups, 'query': query, 'search_field': search_field})
-
-
 
 
 def venues(request):
@@ -127,10 +103,6 @@ def venues(request):
     return render(request, 'events/venues.html', {'venues': venues, 'query': query, 'search_field': search_field})
 
 
-
-def profile(request): 
-    return render(request, 'events/profile.html')
-
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
 def signup(request):
     if request.user.is_authenticated:
@@ -149,6 +121,7 @@ def signup(request):
     else:
         form = UserCreationForm()
         return render(request, 'events/signup.html', {'form': form})
+
 
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
 def signin(request):
@@ -169,6 +142,7 @@ def signin(request):
         form = AuthenticationForm()
         return render(request, 'events/signin.html', {'form': form})
   
+
 def signout(request):
     logout(request)
     return redirect('/')
