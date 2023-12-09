@@ -23,43 +23,42 @@
   
     <!-- Make This Search Feature Actually Work -->
     <div class="center-container">
-    <form method="get" action="{% url 'vendors' %}">
-        <input class="dd_text" type="text" name="q" placeholder="Search...">
-        <select class="dd_test" name="search_field">
-            <option value="event_name">Event Name</option>
-            <option value="venue">Venue</option>
-            <option value="manager">Event Manager</option>
-            <option value="category">Category</option>
-        </select>
-        <button class="btn-lg btn-primary" type="submit">Search</button>
-    </form>
+        <form method="get" action="{% url 'vendors' %}">
+            <input class="dd_text" type="text" name="q" placeholder="Search...">
+            <select class="dd_test" name="search_field">
+                <option value="c_name">Vendor Name</option>
+                <option value="types_of_product">Types of Product</option>
+                <option value="events">Servicing Events</option>
+            </select>
+            <button class="btn-lg btn-primary" type="submit">Search</button>
+        </form>
     </div>
-  
     <br/>
+    
   
     <!-- For Loop for All Events -->
     {% for v in vendors %}
-      <div class="card">
-          <div class="card-header">
-              {{ v.c_name }}
-          </div>
-          <div class="card-body">
-              <h6 class="card-title"><b>Product(s): </b> {{ v.types_of_product }} </h6>
-              <p class="card-text">
-                  <ul>
-                      <!-- Change back into MST time rather than UTC-->
-                      <strong>Owner:</strong> {{ v.c_owner }} <br/>
-                      <strong>Address:</strong> {{ v.v_address }} <br/>
-                      <!-- {% for user in event.attendees.all %}
-                          {{ user }},
-                      {% endfor %} -->
-                  </ul>
-                  <h6 class="s_events_id"> Category: >Insert Category< | Event ID: {{ e.event_id }} </h6>
-              </p>
-          </div>
-      </div>
-      <br/>
-  {% endfor %}
+        <div class="card">
+            <div class="card-header">
+                {{ v.c_name }}
+            </div>
+            <div class="card-body">
+                <h6 class="card-title"><b>Product(s): </b> {{ v.types_of_product }} </h6>
+                <p class="card-text">
+                    <ul>
+                        <strong>Owner:</strong> {{ v.c_owner }} <br/>
+                        <strong>Address:</strong> {{ v.v_address }} <br/>
+                        <strong>Events:</strong>
+                        {% for has_vendors in v.hasvendors_set.all %}
+                            {{ has_vendors.event.e_name }}{% if not forloop.last %}, {% endif %}
+                        {% endfor %}
+                    </ul>
+                </p>
+            </div>
+        </div>
+        <br/>
+    {% endfor %}
+
   
 
 {% endblock %}

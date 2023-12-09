@@ -8,9 +8,9 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
 
-def vendors(request):
-    vendors = Vendors.objects.all()
-    return render(request, 'events/vendors.html', {'vendors': vendors})
+# def vendors(request):
+#     vendors = Vendors.objects.all()
+#     return render(request, 'events/vendors.html', {'vendors': vendors})
 
 # def guests(request):
 #     guests = Guest.objects.all()
@@ -20,6 +20,20 @@ def hasGuests(request):
     hasGuests = HasGuests.objects.all()
     return render(request, 'events/guests.html', {'hasGuests': hasGuests})
 
+def vendors(request):
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'c_name')
+
+    if search_field == 'c_name':
+        vendors = Vendors.objects.filter(Q(c_name__icontains=query))
+    elif search_field == 'types_of_product':
+        vendors = Vendors.objects.filter(Q(types_of_product__icontains=query))
+    elif search_field == 'events':
+        vendors = Vendors.objects.filter(hasvendors__event__e_name__icontains=query)
+    else:
+        vendors = Vendors.objects.all()
+
+    return render(request, 'events/vendors.html', {'vendors': vendors, 'query': query, 'search_field': search_field})
 
 def guests(request):
     query = request.GET.get('q', '')
@@ -76,8 +90,27 @@ def home(request):
 def groups(request):
     return render(request, 'events/groups.html', {})
 
+
 def venues(request):
-    return render(request, 'events/venues.html', {})
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'l_name')
+
+    if search_field == 'l_name':
+        venues = LocationsVenue.objects.filter(Q(l_name__icontains=query))
+    elif search_field == 'city':
+        venues = LocationsVenue.objects.filter(Q(city__icontains=query))
+    elif search_field == 'province_state':
+        venues = LocationsVenue.objects.filter(Q(province_state__icontains=query))
+    elif search_field == 'country':
+        venues = LocationsVenue.objects.filter(Q(country__icontains=query))
+    elif search_field == 'events':
+        venues = LocationsVenue.objects.filter(isat__event__e_name__icontains=query)
+    else:
+        venues = LocationsVenue.objects.all()
+
+    return render(request, 'events/venues.html', {'venues': venues, 'query': query, 'search_field': search_field})
+
+
 
 def profile(request): 
     return render(request, 'events/profile.html')

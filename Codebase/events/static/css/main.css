@@ -130,6 +130,11 @@
     font-weight: 600;
 }
 
+.card-title2 {
+  font-size: 14px;
+  color:#464646;
+}
+
 .link {
   color: blue;
 }

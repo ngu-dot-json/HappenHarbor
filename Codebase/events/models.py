@@ -103,7 +103,7 @@ class HasGuests(models.Model):
 
 
 class HasVendors(models.Model):
-    v_name = models.OneToOneField('Vendors', models.DO_NOTHING, db_column='V_name', primary_key=True)  # Field name made lowercase. The composite primary key (V_name, Event_ID) found, that is not supported. The first column is selected.
+    v_name = models.ForeignKey('Vendors', models.DO_NOTHING, db_column='V_name', primary_key=True)  # Field name made lowercase. The composite primary key (V_name, Event_ID) found, that is not supported. The first column is selected.
     event = models.ForeignKey(Events, models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
 
     class Meta:
@@ -113,7 +113,7 @@ class HasVendors(models.Model):
 
 
 class IsAt(models.Model):
-    l_address = models.OneToOneField('LocationsVenue', models.DO_NOTHING, db_column='L_Address', primary_key=True)  # Field name made lowercase. The composite primary key (L_Address, Event_ID) found, that is not supported. The first column is selected.
+    l_address = models.ForeignKey('LocationsVenue', models.DO_NOTHING, db_column='L_Address', primary_key=True)  # Field name made lowercase. The composite primary key (L_Address, Event_ID) found, that is not supported. The first column is selected.
     event = models.ForeignKey(Events, models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
 
     class Meta:
