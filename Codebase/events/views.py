@@ -16,6 +16,10 @@ def guests(request):
     guests = Guest.objects.all()
     return render(request, 'events/guests.html', {'guests': guests})
 
+def hasGuests(request):
+    hasGuests = HasGuests.objects.all()
+    return render(request, 'events/guests.html', {'hasGuests': hasGuests})
+
 # CODE FOR SEARCH BAR
 def events(request):
     query = request.GET.get('q', '')
@@ -26,19 +30,15 @@ def events(request):
     elif search_field == 'venue':
         events = Events.objects.filter(Q(venue_add__l_name__icontains=query))
     elif search_field == 'organizer':
-        events = Events.objects.filter(Q(org_username__iscontains=query))
+        events = Events.objects.filter(Q(org_username__icontains=query))
     elif search_field == 'category':
         events = Events.objects.filter(Q(e_category__icontains=query))
+    elif search_field == 'guest':
+        events = Events.objects.filter(Q(hasguests__guest__g_name__icontains=query))
     else:
         events = Events.objects.all()
 
     return render(request, 'events/events.html', {'events': events, 'query': query, 'search_field': search_field})
-
-
-
-
-
-
 
 
 

@@ -30,6 +30,7 @@
                 <option value="venue">Venue</option>
                 <option value="organzier">Organizer</option>
                 <option value="category">Category</option>
+                <option value="guest">Guests</option>
             </select>
             <button class="btn-lg btn-primary" type="submit">Search</button>
         </form>
@@ -39,30 +40,32 @@
   
     <!-- For Loop for All Events -->
     {% for e in events %}
-      <div class="card">
-          <div class="card-header">
-              ({{ e.org_username.f_name }}) {{ e.e_name }}
-          </div>
-          <div class="card-body">
-              <h6 class="card-title"><b>Venue: </b> {{e.venue_add.l_name}} </h6>
-              <h6 class="card-title">{{e.venue_add.address}} </h6>
-              <p class="card-text">
-                  <ul>
-                      <!-- Change back into MST time rather than UTC-->
-                      <strong>Date:</strong> {{ e.e_date }} <br/>              	
-                      <strong>Website:</strong> <u class="link"> {{ e.e_site }} </u><br/>
-                      <strong>Description:</strong> {{ e.e_desc }} <br/>
-                      <strong>Attendees: </strong>
-                      <!-- {% for user in event.attendees.all %}
-                          {{ user }},
-                      {% endfor %} -->
-                  </ul>
-                  <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
-              </p>
-          </div>
-      </div>
-      <br/>
-  {% endfor %}
+    <div class="card">
+        <div class="card-header">
+            ({{ e.org_username.f_name }}) {{ e.e_name }}
+        </div>
+        <div class="card-body">
+            <h6 class="card-title"><b>Venue: </b> {{e.venue_add.l_name}} </h6>
+            <h6 class="card-title">{{e.venue_add.address}} </h6>
+            <p class="card-text">
+                <ul>
+                    <!-- Change back into MST time rather than UTC-->
+                    <strong>Guests:</strong>
+                    {% for has_guests in e.hasguests_set.all %}
+                        {{ has_guests.guest.g_name }},
+                    {% endfor %}<br/>
+                    <strong>Date:</strong> {{ e.e_date }} <br/>              	
+                    <strong>Website:</strong> <u class="link"> {{ e.e_site }} </u><br/>
+                    <strong>Description:</strong> {{ e.e_desc }} <br/>
+                </ul>
+                <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
+            </p>
+        </div>
+    </div><br/>
+{% endfor %}
+
+
+
   
 
 {% endblock %}
