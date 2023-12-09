@@ -1,20 +1,5 @@
 from django.db import models
 
-class Venue(models.Model):
-    # name = models.CharField('Venue Name', max_length=120)
-    # address = models.CharField('Address', max_length=300)
-    # post_code = models.CharField('Postal Code', max_length=12)
-    # phone = models.CharField('Phone Number', max_length=25)
-    # web = models.URLField('Website Address')
-    # email = models.EmailField('Venue Email')
-
-    class Meta:
-        managed = False
-        db_table = 'Venue'
-
-    # def __str__(self):
-    #     return self.name
-
 class Affiliated(models.Model):
     group_id = models.IntegerField(db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Event_ID) found, that is not supported. The first column is selected.
     event = models.ForeignKey('Events', models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
@@ -146,7 +131,7 @@ class LocationsVenue(models.Model):
 
 
 class PartOf(models.Model):
-    group = models.OneToOneField('UserGroups', models.DO_NOTHING, db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Username) found, that is not supported. The first column is selected.
+    group = models.ForeignKey('UserGroups', models.DO_NOTHING, db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Username) found, that is not supported. The first column is selected.
     username = models.ForeignKey('User', models.DO_NOTHING, db_column='Username')  # Field name made lowercase.
 
     class Meta:

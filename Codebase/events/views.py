@@ -87,8 +87,24 @@ def account(request):
 def home(request):
     return render(request, 'events/home.html', {})
 
+# def groups(request):
+#     return render(request, 'events/groups.html', {})
+
+
 def groups(request):
-    return render(request, 'events/groups.html', {})
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'ug_name')
+
+    if search_field == 'ug_name':
+        usergroups = UserGroups.objects.filter(ug_name__icontains=query)
+    elif search_field == 'group_member':
+        usergroups = UserGroups.objects.filter(partof__username__username__icontains=query)
+    else:
+        usergroups = UserGroups.objects.all()
+
+    return render(request, 'events/groups.html', {'usergroups': usergroups, 'query': query, 'search_field': search_field})
+
+
 
 
 def venues(request):

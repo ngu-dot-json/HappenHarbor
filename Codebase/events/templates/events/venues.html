@@ -8,19 +8,16 @@
                 background-image: url('../../static/HF169.png');
                 background-attachment: fixed;
                 background-size: cover;
-            }
-            
+            }       
             .center-container {
                 display: flex;
                 justify-content: center;
                 align-items: center;
             }
         </style>
-        
         <h2>View Venues</h2><br/>
     </center>
   
-    <!-- Make This Search Feature Actually Work -->
     <div class="center-container">
         <form method="get" action="{% url 'venues' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">

@@ -55,7 +55,8 @@
                             {{ has_guests.guest.g_name }}{% if not forloop.last %}, {% endif %}
                         {% endfor %}<br/>
                     {% endif %}
-                    <strong>Date:</strong> {{ e.e_date }} <br/>
+                    {% load tz %}
+                    <strong>Date:</strong> {{ e.e_date|timezone:"America/Denver"|date:"Y-m-d H:i:s" }} MST <br/>
                     <strong>Description:</strong> {{ e.e_desc }} <br/>              	
                     <strong>Website:</strong> <u class="link"> {{ e.e_site }} </u><br/>
                     {% if e.hasvendors_set.exists %}
