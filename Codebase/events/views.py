@@ -1,25 +1,25 @@
 # The default sign in, sign out and register system was adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag
 
-from calendar import HTMLCalendar
-from datetime import datetime
-from .models import Events
+from .models import *
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
-from django.contrib.auth import logout
-from django.shortcuts import render, redirect
 from django.db.models import Q
 
 def events(request):
     events = Events.objects.all()
     return render(request, 'events/events.html', {'events': events})
 
+def vendors(request):
+    vendors = Vendors.objects.all()
+    return render(request, 'events/vendors.html', {'vendors': vendors})
 
+def guests(request):
+    guests = Guest.objects.all()
+    return render(request, 'events/guests.html', {'guests': guests})
 
-
-
-
+# CODE FOR SEARCH BAR
 # def all_events(request):
 #     query = request.GET.get('q', '')
 #     search_field = request.GET.get('search_field', 'event_name')
@@ -90,45 +90,8 @@ def groups(request):
 def venues(request):
     return render(request, 'events/venues.html', {})
 
-def guests(request):
-    return render(request, 'events/guests.html', {})
-
-def vendors(request):
-    return render(request, 'events/vendors.html', {})
-
 def profile(request): 
     return render(request, 'events/profile.html')
-   
-
-# shows default current month and year calendar
-def calendar(request, year=datetime.now().year, month=datetime.now().strftime('%B')):
-    name = "John"
-    month = month.title() # Make first letter capital
-
-    #convert month from name to num
-    #month_num = int(list(calendar.month_name).index(month))
-    month_num = 11
-
-    # create a cealendar
-    cal = HTMLCalendar().formatmonth(int(year), month_num)
-
-    # get current year
-    now = datetime.now()
-    curr_year = now.year
-
-    # get current time -- NOT MST MAYBE GWT?
-    curr_time = now.strftime('%I:%M %p')
-
-    return render(request,           
-        'events/calendar.html', {
-            "name": name,
-            "year": year,
-            "month": month,
-            "month_num": month_num,
-            "cal": cal,
-            "curr_year": curr_year,
-            "curr_time": curr_time,
-        })
 
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
 def signup(request):

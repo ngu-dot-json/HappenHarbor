@@ -1,20 +1,70 @@
 {% extends 'events/base.html' %}
+<!DOCTYPE html>
 
 {% block content %}
 
     <center class="HH2">
         <style>
             body {
-                background-image: url('static/HF169.png');
+                background-image: url('../../static/HF169.png');
                 background-attachment: fixed;
                 background-size: cover; /* Optional: Adjust the background size as needed */
             }
+            
+            .center-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
         </style>
-
-        <h2>GUESTS</h2>
-
-        <a>MA LETTUCE</a>
-        <br/><br/>
+        
+        <h2>Find Guests</h2><br/>
     </center>
+  
+    <!-- Make This Search Feature Actually Work -->
+    <div class="center-container">
+    <form method="get" action="{% url 'guests' %}">
+        <input class="dd_text" type="text" name="q" placeholder="Search...">
+        <select class="dd_test" name="search_field">
+            <option value="event_name">Event Name</option>
+            <option value="venue">Venue</option>
+            <option value="manager">Event Manager</option>
+            <option value="category">Category</option>
+        </select>
+        <button class="btn-lg btn-primary" type="submit">Search</button>
+    </form>
+    </div>
+  
+    <br/>
+  
+    <!-- For Loop for All Events -->
+    {% for g in guests %}
+      <div class="card">
+          <div class="card-header">
+              {{ g.g_name }}
+          </div>
+          <div class="card-body">
+              <h6 class="card-title"><b>Venue: </b> Insert Venue Here </h6>
+              <p class="card-text">
+                  <ul>
+                      <!-- Change back into MST time rather than UTC-->
+                      <strong>Date:</strong> >Insert Date Here< <br/>              	
+                      <strong>Website:</strong> <u class="link"> >Insert Website Here< </u><br/>
+                      <strong>Description:</strong> >Insert Desc. Here< <br/>
+                      <strong>Attendees: </strong>
+                      <!-- {% for user in event.attendees.all %}
+                          {{ user }},
+                      {% endfor %} -->
+                  </ul>
+                  <h6 class="s_events_id"> Category: >Insert Category< | Event ID: {{ e.event_id }} </h6>
+              </p>
+          </div>
+      </div>
+      <br/>
+  {% endfor %}
+  
 
 {% endblock %}
+
+
+
