@@ -47,7 +47,7 @@
                     <br/>
                     <strong>Events:</strong>
                     {% for has_guests in g.hasguests_set.all %}
-                        {{ has_guests.event.e_name }} ({{has_guests.event.e_date}}),
+                        {{ has_guests.event.e_name }} ({{has_guests.event.e_date}}){% if not forloop.last %}, {% endif %}
                     {% endfor %}
                 </ul>
                 <h6 class="s_events_id"> Guest ID: {{ g.guest_id }} </h6>
