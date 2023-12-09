@@ -2,41 +2,51 @@
 
 from calendar import HTMLCalendar
 from datetime import datetime
-from .models import Event
-
+from .models import Events
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-from django.shortcuts import HttpResponseRedirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash  # Add this line
-from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
-
-
-
-
 from django.db.models import Q
 
-def all_events(request):
-    query = request.GET.get('q', '')
-    search_field = request.GET.get('search_field', 'event_name')
+def events_list(request):
+    events = Events.objects.all()
+    return render(request, 'events/events_list.html', {'events': events})
 
-    if search_field == 'event_name':
-        events = Event.objects.filter(Q(name__icontains=query))
-    elif search_field == 'venue':
-        events = Event.objects.filter(Q(venue__name__icontains=query))
-    elif search_field == 'manager':
-        events = Event.objects.filter(Q(manager__icontains=query))
-    elif search_field == 'category':
-        events = Event.objects.filter(Q(event_type__icontains=query))
-    else:
-        events = Event.objects.all()
 
-    return render(request, 'events/event_list.html', {'event_list': events, 'query': query, 'search_field': search_field})
+
+
+
+
+# def all_events(request):
+#     query = request.GET.get('q', '')
+#     search_field = request.GET.get('search_field', 'event_name')
+
+#     if search_field == 'event_name':
+#         events = Event.objects.filter(Q(name__icontains=query))
+#     elif search_field == 'venue':
+#         events = Event.objects.filter(Q(venue__name__icontains=query))
+#     elif search_field == 'manager':
+#         events = Event.objects.filter(Q(manager__icontains=query))
+#     elif search_field == 'category':
+#         events = Event.objects.filter(Q(event_type__icontains=query))
+#     else:
+#         events = Event.objects.all()
+
+#     return render(request, 'events/event_list.html', {'event_list': events, 'query': query, 'search_field': search_field})
+
+
+
+
+
+
+
+
+
+
+
 
 from django.shortcuts import render
 from .models import Venue

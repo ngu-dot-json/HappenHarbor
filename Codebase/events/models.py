@@ -9,11 +9,14 @@ class Venue(models.Model):
     web = models.URLField('Website Address')
     email = models.EmailField('Venue Email')
 
+    class Meta:
+        managed = False
+        db_table = 'Venue'
+
+
     def __str__(self):
         return self.name
-
-
-
+    
 class User(models.Model):
     f_name = models.CharField(max_length=30)
     l_name = models.CharField(max_length=30)
@@ -21,19 +24,23 @@ class User(models.Model):
 
     def __str__(self):
         return self.f_name + ' ' + self.l_name
+    class Meta:
+        managed = False
+        db_table = 'User'
 
 
 
-class Event(models.Model):
-    name = models.CharField('Event Name', max_length=120)
-    event_date = models.DateTimeField('Event Date')
-    venue = models.ForeignKey(Venue, blank=True, null=True, on_delete=models.CASCADE)
-    manager = models.CharField('Manager', max_length=60)
-    description = models.TextField(blank=True)
-    attendees = models.ManyToManyField(User, blank=True)
-    event_site = models.TextField(blank=True)
-    event_type = models.TextField(blank=True)
+
+class Events(models.Model):
+    event_id = models.IntegerField(db_column='Event_ID', primary_key=True)  # Field name made lowercase.
+    e_name = models.CharField(db_column='E_name', max_length=255)  # Field name made lowercase.
+    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Events'
+
 
 
     def __str__(self):
-        return self.name
+        return str(self.event_id)

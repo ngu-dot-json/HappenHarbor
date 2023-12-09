@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('', views.home, name="home"), # point to home function in views.py
     path('calendar', views.calendar, name="calendar"),
-    path('events', views.all_events, name="list-events"),
+    path('events_list', views.events_list, name='events_list'),    
     path('about', views.about, name="about"),
     path('account', views.account, name="account"),
     path('groups', views.groups, name="groups"),
