@@ -85,6 +85,7 @@ class Guest(models.Model):
     guest_id = models.IntegerField(db_column='Guest_ID', primary_key=True)  # Field name made lowercase.
     g_type = models.CharField(db_column='G_Type', max_length=255)  # Field name made lowercase.
     g_name = models.CharField(db_column='G_name', max_length=255)  # Field name made lowercase.
+    g_info = models.TextField(db_column='G_info')  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -92,7 +93,7 @@ class Guest(models.Model):
 
 
 class HasGuests(models.Model):
-    guest = models.OneToOneField(Guest, models.DO_NOTHING, db_column='Guest_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Guest_ID, Event_ID) found, that is not supported. The first column is selected.
+    guest = models.ForeignKey(Guest, models.DO_NOTHING, db_column='Guest_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Guest_ID, Event_ID) found, that is not supported. The first column is selected.
     event = models.ForeignKey(Events, models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
 
     class Meta:

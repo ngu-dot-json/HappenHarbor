@@ -39,29 +39,27 @@
   
     <!-- For Loop for All Events -->
     {% for g in guests %}
-      <div class="card">
-          <div class="card-header">
-              {{ g.g_name }}
-          </div>
-          <div class="card-body">
-              <h6 class="card-title"><b>Venue: </b> Insert Venue Here </h6>
-              <p class="card-text">
-                  <ul>
-                      <!-- Change back into MST time rather than UTC-->
-                      <strong>Date:</strong> >Insert Date Here< <br/>              	
-                      <strong>Website:</strong> <u class="link"> >Insert Website Here< </u><br/>
-                      <strong>Description:</strong> >Insert Desc. Here< <br/>
-                      <strong>Attendees: </strong>
-                      <!-- {% for user in event.attendees.all %}
-                          {{ user }},
-                      {% endfor %} -->
-                  </ul>
-                  <h6 class="s_events_id"> Category: >Insert Category< | Event ID: {{ e.event_id }} </h6>
-              </p>
-          </div>
-      </div>
-      <br/>
-  {% endfor %}
+    <div class="card">
+        <div class="card-header">
+            {{ g.g_name }}
+        </div>
+        <div class="card-body">
+            <h6 class="card-title"><b>Type: </b> {{ g.g_type }} </h6>
+            <p class="card-text">
+                <ul>
+                    <strong>Description:</strong> {{ g.g_info }} <br/>
+                    <strong>Events:</strong>
+                    {% for has_guests in g.hasguests_set.all %}
+                        {{ has_guests.event.e_name }},
+                    {% endfor %}
+                </ul>
+                <h6 class="s_events_id"> Guest ID: {{ g.guest_id }} </h6>
+            </p>
+        </div>
+    </div>
+    <br/>
+{% endfor %}
+
   
 
 {% endblock %}
