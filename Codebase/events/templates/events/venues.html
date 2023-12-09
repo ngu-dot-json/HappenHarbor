@@ -24,40 +24,6 @@
     <br/>
   </center>
 
-<div class="center-container">
-<form method="get" action="{% url 'venues' %}">
-    <input class="dd_text" type="text" name="q" placeholder="Search...">
-    <select class="dd_test" name="search_field">
-        <option value="name">Venue Name</option>
-        <option value="address">Address</option>
-        <option value="phone">Phone Number</option>
-        <!-- Add more options based on your Venue model fields -->
-    </select>
-    <button class="btn-lg btn-primary" type="submit">Search</button>
-</form>
-</div>
-
 <br/>
-
-{% for venue in venues %}
-    <div class="card">
-        <div class="card-header">
-            ({{ venue.manager }}) {{ venue.name }}
-        </div>
-        <div class="card-body">
-            <h6 class="card-title"><b>Address: </b>{{ venue.address }}</h6>
-            <p class="card-text">
-                <ul>
-                  <strong>Phone:</strong> {{ venue.phone }}<br/>
-                  <strong>Website:</strong> <u class="link">{{ venue.web }}</u><br/>
-                  <strong>Email:</strong> {{ venue.email }}<br/>
-                  <!-- Add more fields based on your Venue model -->
-                </ul>
-                <h6 class="s_events_id"> Venue ID: {{ venue.id }} </h6>
-            </p>
-        </div>
-    </div>
-    <br/>
-{% endfor %}
 
 {% endblock %}
