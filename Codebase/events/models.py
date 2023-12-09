@@ -32,6 +32,7 @@ class Event(models.Model):
     description = models.TextField(blank=True)
     attendees = models.ManyToManyField(User, blank=True)
     event_site = models.TextField(blank=True)
+    event_type = models.TextField(blank=True)
 
 
     def __str__(self):

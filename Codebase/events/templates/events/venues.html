@@ -1,20 +1,74 @@
 {% extends 'events/base.html' %}
+{% load static %}
 
 {% block content %}
+  <>
+<style>
+  body {
+      background-image: url('../../static/HF169.png');
+      background-attachment: fixed;
+      background-size: cover; /* Optional: Adjust the background size as needed */
+  }
+</style>
 
-    <center class="HH2">
-        <style>
-            body {
-                background-image: url('../../static/HF169.png');
-                background-attachment: fixed;
-                background-size: cover; /* Optional: Adjust the background size as needed */
-            }
-        </style>
+<style>
+  .center-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
+</style>
 
-        <h2>VENUES</h2>
+  <center class="HH2">
+    <h2>Venues</h2>
+    <br/>
 
-        <a>MA LETTUCE</a>
-        <br/><br/>
-    </center>
+  </center>
+<!-- Add the following code at the top of your HTML template, above the existing for loop -->
 
+<div class="center-container">
+<form method="get" action="{% url 'list-events' %}">
+    <input class="dd_text" type="text" name="q" placeholder="Search...">
+    <select class="dd_test" name="search_field">
+        <option value="event_name">Event Name</option>
+        <option value="venue">Venue</option>
+        <option value="manager">Event Manager</option>
+        <option value="event_date">Event Date</option>
+    </select>
+    <button class="btn-lg btn-primary" type="submit">Search</button>
+</form>
+</div>
+
+<br/>
+<!-- Your existing for loop goes here -->
+
+{% for event in event_list %}
+    <div class="card">
+        <div class="card-header">
+            ({{ event.manager }}) {{ event }}
+        </div>
+        <div class="card-body">
+            <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
+            <p class="card-text">
+                <ul>
+                    <strong>Date:</strong> {{ event.event_date }}<br/>
+                    <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
+                    <strong>Description:</strong> {{ event.description }}<br/>
+                    <strong>Attendees: </strong>
+                    <!-- {% for user in event.attendees.all %}
+                        {{ user }},
+                    {% endfor %} -->
+                </ul>
+                <h6 class="s_events_id"> Category: {{ event.event_type }} | Event ID: {{ event.id }} </h6>
+            </p>
+        </div>
+    </div>
+    <br/>
+{% endfor %}
+
+
+
+
+
+  </>
 {% endblock %}

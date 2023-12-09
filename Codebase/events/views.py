@@ -31,8 +31,8 @@ def all_events(request):
         events = Event.objects.filter(Q(venue__name__icontains=query))
     elif search_field == 'manager':
         events = Event.objects.filter(Q(manager__icontains=query))
-    elif search_field == 'event_date':
-        events = Event.objects.filter(Q(event_date__date__icontains=query))
+    elif search_field == 'category':
+        events = Event.objects.filter(Q(event_type__icontains=query))
     else:
         events = Event.objects.all()
 

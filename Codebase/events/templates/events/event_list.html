@@ -24,9 +24,6 @@
     <br/>
 
   </center>
-
-
-
 <!-- Add the following code at the top of your HTML template, above the existing for loop -->
 
 <div class="center-container">
@@ -36,7 +33,7 @@
         <option value="event_name">Event Name</option>
         <option value="venue">Venue</option>
         <option value="manager">Event Manager</option>
-        <option value="event_date">Event Date</option>
+        <option value="category">Category</option>
     </select>
     <button class="btn-lg btn-primary" type="submit">Search</button>
 </form>
@@ -54,15 +51,15 @@
             <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
             <p class="card-text">
                 <ul>
-                    <strong>Date:</strong> {{ event.event_date }}<br/>
-                    <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
+                  <strong>Date:</strong> {% load tz %}{{ event.event_date|date:"F j, Y P"|timezone:"America/Denver" }}<br/>
+                  <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
                     <strong>Description:</strong> {{ event.description }}<br/>
                     <strong>Attendees: </strong>
                     <!-- {% for user in event.attendees.all %}
                         {{ user }},
                     {% endfor %} -->
                 </ul>
-                <h6 class="s_events_id"> Event ID: {{ event.id }} </h6>
+                <h6 class="s_events_id"> Category: {{ event.event_type }} | Event ID: {{ event.id }} </h6>
             </p>
         </div>
     </div>
