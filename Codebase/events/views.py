@@ -11,9 +11,9 @@ from django.contrib.auth import logout
 from django.shortcuts import render, redirect
 from django.db.models import Q
 
-def events_list(request):
+def events(request):
     events = Events.objects.all()
-    return render(request, 'events/events_list.html', {'events': events})
+    return render(request, 'events/events.html', {'events': events})
 
 
 

@@ -40,7 +40,5 @@ class Events(models.Model):
         managed = False
         db_table = 'Events'
 
-
-
     def __str__(self):
         return str(self.event_id)

@@ -16,7 +16,7 @@ urlpatterns = [
 
     path('', views.home, name="home"), # point to home function in views.py
     path('calendar', views.calendar, name="calendar"),
-    path('events_list', views.events_list, name='events_list'),    
+    path('events/', views.events, name='events'),    
     path('about', views.about, name="about"),
     path('account', views.account, name="account"),
     path('groups', views.groups, name="groups"),
@@ -28,8 +28,4 @@ urlpatterns = [
     path('venues_list/', views.venues, name='venues'),
     path('vendors', views.vendors, name='vendors'),
     path('guests', views.guests, name='guests'),
-
-    # Other URL patterns
-    # path('change_password/', ChangePasswordView.as_view(), name='change_password'),
-    # path('change_username/', ChangeUsernameView.as_view(), name='change_username'),
 ]
