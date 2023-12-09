@@ -38,6 +38,32 @@ def all_events(request):
 
     return render(request, 'events/event_list.html', {'event_list': events, 'query': query, 'search_field': search_field})
 
+from django.shortcuts import render
+from .models import Venue
+
+from django.shortcuts import render
+from django.db.models import Q
+from .models import Venue
+
+def list_venues(request):
+    query = request.GET.get('q', '')
+    search_field = request.GET.get('search_field', 'name')
+
+    if search_field == 'name':
+        venues = Venue.objects.filter(Q(name__icontains=query))
+    elif search_field == 'address':
+        venues = Venue.objects.filter(Q(address__icontains=query))
+    elif search_field == 'phone':
+        venues = Venue.objects.filter(Q(phone__icontains=query))
+    else:
+        venues = Venue.objects.all()
+
+    context = {'venue_list': venues}
+    return render(request, 'events/venue_list.html', context)
+
+
+
+
 
 def about(request):
     return render(request, 'events/about.html', {})
