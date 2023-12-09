@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Events List</title>
+</head>
+<body>
+    <h1>Events List</h1>
+
+    <ul>
+        {% for e in events %}
+            <li>{{ e.Event_ID }} - {{ e.E_name }}</li>
+            <li>{{ e.Org_username }}</li>
+            <!-- Add other fields as needed -->
+        {% endfor %}
+    </ul>
+</body>
+</html>
