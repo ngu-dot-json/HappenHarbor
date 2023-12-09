@@ -44,14 +44,12 @@
               {{ v.c_name }}
           </div>
           <div class="card-body">
-              <h6 class="card-title"><b>Venue: </b> Insert Venue Here </h6>
+              <h6 class="card-title"><b>Product(s): </b> {{ v.types_of_product }} </h6>
               <p class="card-text">
                   <ul>
                       <!-- Change back into MST time rather than UTC-->
-                      <strong>Date:</strong> >Insert Date Here< <br/>              	
-                      <strong>Website:</strong> <u class="link"> >Insert Website Here< </u><br/>
-                      <strong>Description:</strong> >Insert Desc. Here< <br/>
-                      <strong>Attendees: </strong>
+                      <strong>Owner:</strong> {{ v.c_owner }} <br/>
+                      <strong>Address:</strong> {{ v.v_address }} <br/>
                       <!-- {% for user in event.attendees.all %}
                           {{ user }},
                       {% endfor %} -->

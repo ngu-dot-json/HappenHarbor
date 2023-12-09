@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Venue(models.Model):
     name = models.CharField('Venue Name', max_length=120)
     address = models.CharField('Address', max_length=300)
@@ -13,22 +12,8 @@ class Venue(models.Model):
         managed = False
         db_table = 'Venue'
 
-
     def __str__(self):
         return self.name
-
-class Events(models.Model):
-    event_id = models.IntegerField(db_column='Event_ID', primary_key=True)  # Field name made lowercase.
-    e_name = models.CharField(db_column='E_name', max_length=255)  # Field name made lowercase.
-    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Events'
-
-    def __str__(self):
-        return str(self.event_id)
-    
 
 class Affiliated(models.Model):
     group_id = models.IntegerField(db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Event_ID) found, that is not supported. The first column is selected.
@@ -79,6 +64,22 @@ class Dates(models.Model):
     class Meta:
         managed = False
         db_table = 'Dates'
+
+
+class Events(models.Model):
+    event_id = models.IntegerField(db_column='Event_ID', primary_key=True)  # Field name made lowercase.
+    e_name = models.CharField(db_column='E_name', max_length=255)  # Field name made lowercase.
+    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
+    venue_add = models.ForeignKey('LocationsVenue', models.DO_NOTHING, db_column='Venue_add')  # Field name made lowercase.
+    e_site = models.CharField(db_column='E_site', max_length=255)  # Field name made lowercase.
+    e_desc = models.CharField(db_column='E_desc', max_length=255)  # Field name made lowercase.
+    e_date = models.DateTimeField(db_column='E_date')  # Field name made lowercase.
+    e_category = models.CharField(db_column='E_category', max_length=255)  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Events'
+
 
 class Guest(models.Model):
     guest_id = models.IntegerField(db_column='Guest_ID', primary_key=True)  # Field name made lowercase.
@@ -132,7 +133,7 @@ class IsOn(models.Model):
 
 class LocationsVenue(models.Model):
     address = models.CharField(db_column='Address', primary_key=True, max_length=255)  # Field name made lowercase.
-    l_owner = models.CharField(db_column='L_Owner', max_length=255)  # Field name made lowercase.
+    l_owner = models.ForeignKey('User', models.DO_NOTHING, db_column='L_Owner')  # Field name made lowercase.
     l_name = models.CharField(db_column='L_Name', max_length=255)  # Field name made lowercase.
     city = models.CharField(db_column='City', max_length=255)  # Field name made lowercase.
     province_state = models.CharField(db_column='Province_state', max_length=255)  # Field name made lowercase.
@@ -168,7 +169,7 @@ class User(models.Model):
     f_name = models.CharField(db_column='F.name', max_length=255, db_comment='First Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     m_name = models.CharField(db_column='M.Name', max_length=255, blank=True, null=True, db_comment='Middle Name (opt)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     l_name = models.CharField(db_column='L.Name', max_length=255, db_comment='Last Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    email = models.IntegerField(db_column='Email', db_comment='Email (req)')  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, db_comment='Email (req)')  # Field name made lowercase.
     birthday = models.DateField(db_column='Birthday', db_comment='Birthday (req)')  # Field name made lowercase.
     ord_flag = models.IntegerField(db_column='Ord_flag', blank=True, null=True, db_comment='Ord Flag? (opt)')  # Field name made lowercase.
     org_id = models.IntegerField(db_column='Org_ID', blank=True, null=True, db_comment='Org ID (opt)')  # Field name made lowercase.

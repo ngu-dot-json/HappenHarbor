@@ -41,22 +41,22 @@
     {% for e in events %}
       <div class="card">
           <div class="card-header">
-              {{ e.e_name }}
+              ({{ e.org_username.f_name }}) {{ e.e_name }}
           </div>
           <div class="card-body">
-              <h6 class="card-title"><b>Venue: </b> Insert Venue Here </h6>
+              <h6 class="card-title"><b>Venue: </b> {{e.venue_add.l_name}} </h6>
               <p class="card-text">
                   <ul>
                       <!-- Change back into MST time rather than UTC-->
-                      <strong>Date:</strong> >Insert Date Here< <br/>              	
-                      <strong>Website:</strong> <u class="link"> >Insert Website Here< </u><br/>
-                      <strong>Description:</strong> >Insert Desc. Here< <br/>
+                      <strong>Date:</strong> {{ e.e_date }} <br/>              	
+                      <strong>Website:</strong> <u class="link"> {{ e.e_site }} </u><br/>
+                      <strong>Description:</strong> {{ e.e_desc }} <br/>
                       <strong>Attendees: </strong>
                       <!-- {% for user in event.attendees.all %}
                           {{ user }},
                       {% endfor %} -->
                   </ul>
-                  <h6 class="s_events_id"> Category: >Insert Category< | Event ID: {{ e.event_id }} </h6>
+                  <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
               </p>
           </div>
       </div>
