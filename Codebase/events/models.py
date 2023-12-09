@@ -32,7 +32,7 @@ class User(models.Model):
 
 
 class Events(models.Model):
-    Event_ID = models.IntegerField()
+    Event_ID = models.IntegerField(primary_key=True)
     E_name = models.CharField(max_length=255)
     Org_username = models.CharField(max_length=255)
     class Meta:
