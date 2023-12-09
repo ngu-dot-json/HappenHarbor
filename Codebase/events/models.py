@@ -32,15 +32,15 @@ class User(models.Model):
 
 
 class Events(models.Model):
-    Event_ID = models.IntegerField(primary_key=True)
-    E_name = models.CharField(max_length=255)
-    Org_username = models.CharField(max_length=255)
+    event_id = models.IntegerField(db_column='Event_ID', primary_key=True)  # Field name made lowercase.
+    e_name = models.CharField(db_column='E_name', max_length=255)  # Field name made lowercase.
+    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
+
     class Meta:
         managed = False
         db_table = 'Events'
 
 
 
-
     def __str__(self):
-        return self.name
+        return str(self.event_id)

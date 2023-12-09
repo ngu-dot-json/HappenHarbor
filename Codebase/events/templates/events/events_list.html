@@ -30,14 +30,12 @@
             <ul class="wasdada">
                 <h1>Fuck you SQL</h1>
         
-                <h1>{{ Events }}</h1>
+                <h1>{{ events.event_id }}</h1>
 
-                {% for e in Events %}
-                    <h1>{{ e }}</h1>
-                    <p>Bro Please</p>
-                    <h1>{{ e.Event_ID }}</h1>
-                    <p> {{ e.E_name }} </p>
-                    <h2>{{ e.Org_username }}</h2>
+                {% for e in events %}
+                    <h1>{{ e.event_id }}</h1>
+                    <p> {{ e.e_name }} </p>
+                    <h2>{{ e.org_username }}</h2>
                 {% endfor %}
 
                 <h1>Fuck you SQL</h1>
