@@ -3,22 +3,13 @@
 from calendar import HTMLCalendar
 from datetime import datetime
 from .models import Events
-
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import logout
-from django.shortcuts import HttpResponseRedirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth import update_session_auth_hash  # Add this line
-from django.contrib.auth.forms import PasswordChangeForm
 from django.shortcuts import render, redirect
-
-
-
-from django.shortcuts import render
+from django.db.models import Q
 
 def events_list(request):
     events = Events.objects.all()
@@ -28,11 +19,6 @@ def events_list(request):
 
 
 
-
-
-
-
-from django.db.models import Q
 
 # def all_events(request):
 #     query = request.GET.get('q', '')
