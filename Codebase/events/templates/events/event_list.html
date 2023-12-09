@@ -51,8 +51,8 @@
             <h6 class="card-title"><b>Venue: </b>{{ event.venue }}</h6>
             <p class="card-text">
                 <ul>
-                  <strong>Date:</strong> {% load tz %}{{ event.event_date|date:"F j, Y P"|timezone:"America/Denver" }}<br/>
-                  <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
+                    <!-- Change back into MST time rather than UTC-->
+                    <strong>Date:</strong> {{ event.event_date }}<br/>                  <strong>Website:</strong> <u class="link">{{ event.event_site }}</u><br/>
                     <strong>Description:</strong> {{ event.description }}<br/>
                     <strong>Attendees: </strong>
                     <!-- {% for user in event.attendees.all %}
