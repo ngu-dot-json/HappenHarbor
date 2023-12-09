@@ -1,3 +1,4 @@
+{% extends 'events/base.html' %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,15 +6,61 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Events List</title>
 </head>
-<body>
-    <h1>Events List</h1>
 
-    <ul>
-        {% for e in events %}
-            <li>{{ e.Event_ID }} - {{ e.E_name }}</li>
-            <li>{{ e.Org_username }}</li>
-            <!-- Add other fields as needed -->
-        {% endfor %}
-    </ul>
-</body>
-</html>
+
+{% block content %}
+
+
+    <center class="HH2">
+        <style>
+            body {
+                background-image: url('static/HF169.png');
+                background-attachment: fixed;
+                background-size: cover; /* Optional: Adjust the background size as needed */
+            }
+        </style>
+
+        <h2>EVENTS</h2>
+
+        <a>MA LETTUCE</a>
+
+        <body>
+            <h1>Events List</h1>
+        
+            <ul class="wasdada">
+                <h1>Fuck you SQL</h1>
+        
+
+
+                {% for e in Events %}
+                    <p>Bro Please</p>
+                    <h1>{{ e.Event_ID }}</h1>
+                    <p> {{ e.E_name }} </p>
+                    <h2>{{ e.Org_username }}</h2>
+                {% endfor %}
+
+                <h1>Fuck you SQL</h1>
+
+
+
+            </ul>
+        </body>
+        </html>
+
+
+
+
+
+
+
+
+
+        <br/><br/>
+
+
+
+
+
+    </center>
+
+{% endblock %}
