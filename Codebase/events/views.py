@@ -7,9 +7,6 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 
-def events(request):
-    events = Events.objects.all()
-    return render(request, 'events/events.html', {'events': events})
 
 def vendors(request):
     vendors = Vendors.objects.all()
@@ -20,56 +17,30 @@ def guests(request):
     return render(request, 'events/guests.html', {'guests': guests})
 
 # CODE FOR SEARCH BAR
-# def all_events(request):
-#     query = request.GET.get('q', '')
-#     search_field = request.GET.get('search_field', 'event_name')
-
-#     if search_field == 'event_name':
-#         events = Event.objects.filter(Q(name__icontains=query))
-#     elif search_field == 'venue':
-#         events = Event.objects.filter(Q(venue__name__icontains=query))
-#     elif search_field == 'manager':
-#         events = Event.objects.filter(Q(manager__icontains=query))
-#     elif search_field == 'category':
-#         events = Event.objects.filter(Q(event_type__icontains=query))
-#     else:
-#         events = Event.objects.all()
-
-#     return render(request, 'events/event_list.html', {'event_list': events, 'query': query, 'search_field': search_field})
-
-
-
-
-
-
-
-
-
-
-
-
-from django.shortcuts import render
-from .models import Venue
-
-from django.shortcuts import render
-from django.db.models import Q
-from .models import Venue
-
-def list_venues(request):
+def events(request):
     query = request.GET.get('q', '')
-    search_field = request.GET.get('search_field', 'name')
+    search_field = request.GET.get('search_field', 'event_name')
 
-    if search_field == 'name':
-        venues = Venue.objects.filter(Q(name__icontains=query))
-    elif search_field == 'address':
-        venues = Venue.objects.filter(Q(address__icontains=query))
-    elif search_field == 'phone':
-        venues = Venue.objects.filter(Q(phone__icontains=query))
+    if search_field == 'event_name':
+        events = Events.objects.filter(Q(e_name__icontains=query))
+    elif search_field == 'venue':
+        events = Events.objects.filter(Q(venue_add__l_name__icontains=query))
+    elif search_field == 'organizer':
+        events = Events.objects.filter(Q(org_username__iscontains=query))
+    elif search_field == 'category':
+        events = Events.objects.filter(Q(e_category__icontains=query))
     else:
-        venues = Venue.objects.all()
+        events = Events.objects.all()
 
-    context = {'venue_list': venues}
-    return render(request, 'events/venue_list.html', context)
+    return render(request, 'events/events.html', {'events': events, 'query': query, 'search_field': search_field})
+
+
+
+
+
+
+
+
 
 
 
