@@ -307,10 +307,6 @@ class DjangoSession(models.Model):
         managed = False
         db_table = 'django_session'
 
-from PIL import Image
-from io import BytesIO
-from django.core.files.base import ContentFile
-from django.db import models
 
 class YourModel(models.Model):
     # ... your other fields ...
