@@ -306,3 +306,33 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
+
+from PIL import Image
+from io import BytesIO
+from django.core.files.base import ContentFile
+from django.db import models
+
+class YourModel(models.Model):
+    # ... your other fields ...
+
+    e_img = models.ImageField(upload_to='event_images/', blank=True, null=True)
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        if self.e_img:
+            img = Image.open(self.e_img.path)
+
+            # Set the desired size
+            new_size = (140, 100)
+
+            # Resize the image
+            img.thumbnail(new_size)
+
+            # Save the resized image back to the model field
+            img_io = BytesIO()
+            img.save(img_io, format='JPEG')  # You can change the format if needed
+            img_content = ContentFile(img_io.getvalue(), f'{self.e_img.name.split(".")[0]}_resized.jpg')
+            self.e_img.save(None, img_content, save=False)
+
+            super().save(*args, **kwargs)
