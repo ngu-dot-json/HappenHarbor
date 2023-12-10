@@ -104,18 +104,45 @@ def venues(request):
 
 
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from .models import User
+
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth import login, authenticate
+from django.shortcuts import render, redirect
+from datetime import datetime
+from .models import User
+
 def signup(request):
     if request.user.is_authenticated:
         return redirect('/')
+
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password1')
-            user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect('/')
+            # Save user in the default auth_user table
+            auth_user = form.save()
+
+            # Create a user in the custom User table
+            default_birthday = datetime.strptime('01-01-1969', '%m-%d-%Y').date()
+            user = User.objects.create(
+                username=auth_user.username,
+                f_name='',  # You may need to adjust this based on your form fields
+                m_name='',
+                l_name='',
+                email='',
+                birthday=default_birthday,
+                ord_flag=None,
+                org_id=None
+            )
+
+            # Authenticate and log in the user
+            user_auth = authenticate(request, username=auth_user.username, password=form.cleaned_data.get('password1'))
+            login(request, user_auth)
+
+            return redirect('/account')  # Redirect to profile or desired page
         else:
             return render(request, 'events/signup.html', {'form': form})
     else:
@@ -123,25 +150,42 @@ def signup(request):
         return render(request, 'events/signup.html', {'form': form})
 
 
+
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
+from django.contrib.auth.forms import AuthenticationForm
+from .models import User
+
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'events/home.html')
+
     if request.method == 'POST':
-        username = request.POST['username']
-        password = request.POST['password']
-        user = authenticate(request, username=username, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('/account') #profile
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        if username is None or password is None:
+            msg = 'Invalid Form Submission'
+            return render(request, 'events/signin.html', {'msg': msg})
+
+        user_exists = User.objects.filter(username=username).exists()
+
+        if user_exists:
+            user = authenticate(request, username=username, password=password)
+
+            if user is not None:
+                login(request, user)
+                return redirect('/account')  # Redirect to profile or desired page
+            else:
+                msg = 'Sign In Error'
+                return render(request, 'events/signin.html', {'msg': msg})
         else:
-            msg = 'Sign In Error'
-            form = AuthenticationForm(request.POST)
-            return render(request, 'events/signin.html', {'form': form, 'msg': msg})
+            msg = 'User does not exist'
+            return render(request, 'events/signin.html', {'msg': msg})
     else:
-        form = AuthenticationForm()
-        return render(request, 'events/signin.html', {'form': form})
-  
+        return render(request, 'events/signin.html', {'form': AuthenticationForm()})
+
 
 def signout(request):
     logout(request)
