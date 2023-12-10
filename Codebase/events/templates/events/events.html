@@ -7,6 +7,7 @@
             <h2>Find Events</h2><br/>
         </div>
     </center>
+    
 
     <!-- Make This Search Feature Actually Work -->
     <div class="center-container">
@@ -32,7 +33,7 @@
             </div>
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-8">
                         <h6 class="card-title"><b>Venue: </b> {{e.venue_add.l_name}} </h6>
                         <h6 class="card-title2">{{e.venue_add.address}}, {{e.venue_add.city}}, {{e.venue_add.province_state}} </h6>
                         <p class="card-text">
@@ -53,13 +54,13 @@
                                 {% endfor %}<br/>
                             {% endif %}
                         </p>
-                        <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
                     </div>
-                    <div class="col-md-4">
+                    <div class="col-md-1">
                         {% if e.e_img %}
-                            <img src="data:image/png;base64,{{ e.get_image|safe }}" alt="{{ e.e_name }}" style="width: 350px; height: 200px; margin-right: 5px;">                        
+                            <img src="data:image/png;base64,{{ e.get_image|safe }}" alt="{{ e.e_name }}" style="width: 350px; height: 200px; margin-right: 10px; border: 4px solid #468bb3; border-radius: 5px;">                        
                         {% endif %}
-                    </div>
+                    </div>  
+                    <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
                 </div>
             </div>
         </div><br/>
