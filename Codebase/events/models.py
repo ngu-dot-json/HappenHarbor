@@ -1,4 +1,7 @@
 from django.db import models
+from PIL import Image
+from io import BytesIO
+import base64
 
 class Affiliated(models.Model):
     group_id = models.IntegerField(db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Event_ID) found, that is not supported. The first column is selected.
@@ -60,7 +63,13 @@ class Events(models.Model):
     e_desc = models.CharField(db_column='E_desc', max_length=255)  # Field name made lowercase.
     e_date = models.DateTimeField(db_column='E_date')  # Field name made lowercase.
     e_category = models.CharField(db_column='E_category', max_length=255)  # Field name made lowercase.
+    e_img = models.ImageField(upload_to='e_img/', null=True, blank=True, db_column='Event_img')
 
+    def get_image(self):
+        if self.e_img:
+            return base64.b64encode(self.e_img).decode('utf-8')
+        return None
+    
     class Meta:
         managed = False
         db_table = 'Events'

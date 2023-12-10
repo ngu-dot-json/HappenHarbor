@@ -38,6 +38,9 @@
             <h6 class="card-title2">{{e.venue_add.address}}, {{e.venue_add.city}}, {{e.venue_add.province_state}} </h6>
             <p class="card-text">
                 <ul>
+                    {% if e.e_img %}
+                        <img src="data:image/png;base64,{{ e.get_image|safe }}" alt="{{ e.e_name}}">
+                    {% endif %}
                     {% if e.hasguests_set.exists %}
                         <strong>Guests:</strong>
                         {% for has_guests in e.hasguests_set.all %}
