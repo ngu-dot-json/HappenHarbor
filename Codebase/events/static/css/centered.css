@@ -1,0 +1,6 @@
+/* static/css/common.css */
+.center-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
