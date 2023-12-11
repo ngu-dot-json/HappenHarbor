@@ -177,3 +177,29 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+
+
+# views.py
+
+from django.shortcuts import render, redirect
+from .forms import VenueForm  # Import your VenueForm from forms.py
+from .models import LocationsVenue
+
+def add_venues(request):
+    if not request.user.is_authenticated:
+        return redirect('login')  # Redirect to your login page or handle authentication as needed
+
+    if request.method == 'POST':
+        form = VenueForm(request.POST)
+        if form.is_valid():
+            # Process the form data and set the owner before saving to the database
+            venue = form.save(commit=False)
+            user = request.user
+            venue.l_owner = User.objects.get(username=user.username)
+            venue.save()
+            return redirect('venues')  # Redirect to the venues page or wherever you want to go after adding a venue
+    else:
+        form = VenueForm()
+
+    return render(request, 'events/add_venues.html', {'form': form})

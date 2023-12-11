@@ -3,13 +3,15 @@
 
 {% block content %}
     <center class="HH2">
-                
         <div class="center-container">
-            
-        <h2>Find Venues</h2><br/>
+            <h2>Find Venues</h2><br/>
+        </div>
     </center>
   
     <div class="center-container">
+        <!-- Add button to go to add_venues page -->
+        <a href="{% url 'add_venues' %}" class="btn-lg btn-success">Add Venue</a>
+        
         <form method="get" action="{% url 'venues' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -48,5 +50,4 @@
         </div>
         <br/>
     {% endfor %}
-
 {% endblock %}
