@@ -1,34 +1,32 @@
-<!-- The folllowing code is adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag-->
-
 {% extends 'events/base.html' %}
   
-{% block title %}Login{% endblock %}
+{% block title %}Account{% endblock %}
   
 {% block content %}
-
-<center class="HH">
-
+<center class="HH2">
     <div class="content">
-        <h2 class="welcome" className="WTitle"> Accounts</h2>
+        <h2 class="welcome" className="WTitle"> Account Information</h2>
         {% if user.is_authenticated %}
-            <c className="">Hi {{ user.username }}!</c>
+            <p>Welcome, <strong>{{ user.username }}</strong>!</p>
+            
+            {% if user2 %}
+                <p>First Name: {{ user2.f_name }}</p>
+                <p>Middle Name: {{ user2.m_name }}</p>
+                <p>Last Name: {{ user2.l_name }}</p>
+                <p>Email: {{ user2.email }}</p>
+                <p>Birthday: {{ user2.birthday }}</p>
+            {% endif %}
+
             <br/><br/>
             <a href="signout" class="btn btn-danger">Logout</a>
-            <br/>
-        
         {% else %}
             <br/>
-            <h4> You are currently not signed in.</h4>
-            <h4> Please select one of the following options:</h4>
+            <h4>You are currently not signed in.</h4>
+            <h4>Please select one of the following options:</h4>
             <br/>
             <a href="signin/" class="btn btn-primary"><span class="glyphicon glyphicon-log-in"></span>Sign In</a> 
             <a href="signup/" class="btn btn-primary">Sign Up</a>
         {% endif %}
     </div>
 </center>
-
-
-
-
 {% endblock %}
-

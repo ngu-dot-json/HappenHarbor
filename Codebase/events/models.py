@@ -1,6 +1,5 @@
 from django.db import models
-from PIL import Image
-from io import BytesIO
+
 import base64
 
 class Affiliated(models.Model):
@@ -11,17 +10,6 @@ class Affiliated(models.Model):
         managed = False
         db_table = 'Affiliated'
         unique_together = (('group_id', 'event'),)
-
-
-class ArrangesGuests(models.Model):
-    guest = models.OneToOneField('Guest', models.DO_NOTHING, db_column='Guest_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Guest_ID, Org_username) found, that is not supported. The first column is selected.
-    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Arranges_Guests'
-        unique_together = (('guest', 'org_username'),)
-
 
 class ArrangesVendor(models.Model):
     v_name = models.OneToOneField('Vendors', models.DO_NOTHING, db_column='V_name', primary_key=True)  # Field name made lowercase. The composite primary key (V_name, Org_username) found, that is not supported. The first column is selected.
@@ -169,6 +157,11 @@ class User(models.Model):
     ord_flag = models.IntegerField(db_column='Ord_flag', blank=True, null=True, db_comment='Ord Flag? (opt)')  # Field name made lowercase.
     org_id = models.IntegerField(db_column='Org_ID', blank=True, null=True, db_comment='Org ID (opt)')  # Field name made lowercase.
 
+    USERNAME_FIELD = 'email'
+
+    def set_password(self, force_pass):
+        pass
+
     class Meta:
         managed = False
         db_table = 'User'
@@ -306,29 +299,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class YourModel(models.Model):
-    # ... your other fields ...
-
-    e_img = models.ImageField(upload_to='event_images/', blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        if self.e_img:
-            img = Image.open(self.e_img.path)
-
-            # Set the desired size
-            new_size = (140, 100)
-
-            # Resize the image
-            img.thumbnail(new_size)
-
-            # Save the resized image back to the model field
-            img_io = BytesIO()
-            img.save(img_io, format='JPEG')  # You can change the format if needed
-            img_content = ContentFile(img_io.getvalue(), f'{self.e_img.name.split(".")[0]}_resized.jpg')
-            self.e_img.save(None, img_content, save=False)
-
-            super().save(*args, **kwargs)
