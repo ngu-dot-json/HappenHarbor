@@ -15,7 +15,6 @@ urlpatterns = [
     # UUID: universually unique identifier
 
     path('', views.home, name="home"), # point to home function in views.py
-    path('additional_info/', views.additional_info, name='additional_info'),
     path('events/', views.events, name='events'),    
     path('about', views.about, name="about"),
     path('account', views.account, name="account"),

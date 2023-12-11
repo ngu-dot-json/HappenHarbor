@@ -6,6 +6,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
+from .forms import CustomUserCreationForm
 
 def about(request):
     return render(request, 'events/about.html', {})
@@ -15,7 +16,6 @@ def account(request):
 
 def home(request):
     return render(request, 'events/home.html', {})
-
 
 def vendors(request):
     query = request.GET.get('q', '')
@@ -104,12 +104,6 @@ def venues(request):
 
 
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
-from django.contrib.auth.forms import UserCreationForm
-from django.shortcuts import render, redirect
-from django.contrib.auth import login, authenticate
-from .forms import CustomUserCreationForm
-from datetime import datetime
-
 def signup(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -131,10 +125,7 @@ def signup(request):
             user_auth = authenticate(request, username=auth_user.username, password=auth_form.cleaned_data.get('password1'))
             login(request, user_auth)
 
-            print("Redirecting to additional_info")
-            return redirect('additional_info')  # Redirect to additional_info template
-        else:
-            print("Forms are not valid:", auth_form.errors, custom_form.errors)
+            return redirect('account')
     else:
         auth_form = UserCreationForm()
         custom_form = CustomUserCreationForm()
@@ -143,16 +134,7 @@ def signup(request):
 
 
 
-
-
-
-
 # Code Adapted from Cairocoders' Tutorial on Django MySQL User Authentication Tutorial: https://www.youtube.com/watch?v=6WnL0VHtPag&t=4s
-from django.contrib.auth import authenticate, login
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import AuthenticationForm
-from .models import User
-
 def signin(request):
     if request.user.is_authenticated:
         return render(request, 'events/home.html')
@@ -181,11 +163,6 @@ def signin(request):
             return render(request, 'events/signin.html', {'msg': msg})
     else:
         return render(request, 'events/signin.html', {'form': AuthenticationForm()})
-
-
-def additional_info(request):
-    # You may want to add logic to check if the user is authenticated or has already filled out the additional info form
-    return render(request, 'events/additional_info.html')
 
 def signout(request):
     logout(request)

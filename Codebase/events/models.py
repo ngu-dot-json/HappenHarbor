@@ -150,19 +150,18 @@ class Profile(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(db_column='Username', max_length=255, db_comment='Username (req)')  # Field name made lowercase.
+    username = models.CharField(db_column='Username', primary_key=True, max_length=255, db_comment='Username (req)')  # Field name made lowercase.
     f_name = models.CharField(db_column='F.name', max_length=255, db_comment='First Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     m_name = models.CharField(db_column='M.Name', max_length=255, blank=True, null=True, db_comment='Middle Name (opt)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     l_name = models.CharField(db_column='L.Name', max_length=255, db_comment='Last Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    email = models.CharField(db_column='Email', primary_key=True, max_length=255, db_comment='Email (req)')  # Field name made lowercase.
+    email = models.CharField(db_column='Email', max_length=255, db_comment='Email (req)')  # Field name made lowercase.
     birthday = models.DateField(db_column='Birthday', db_comment='Birthday (req)')  # Field name made lowercase.
     ord_flag = models.IntegerField(db_column='Ord_flag', blank=True, null=True, db_comment='Ord Flag? (opt)')  # Field name made lowercase.
     org_id = models.IntegerField(db_column='Org_ID', blank=True, null=True, db_comment='Org ID (opt)')  # Field name made lowercase.
 
-    USERNAME_FIELD = 'username'
+    USERNAME_FIELD = 'email'
 
-    def set_password(self, raw_pass):
-        # Implement password hashing logic here
+    def set_password(self, force_pass):
         pass
 
 
