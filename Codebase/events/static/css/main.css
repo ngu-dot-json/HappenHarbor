@@ -184,7 +184,7 @@ nav {
   border: 2px solid #fa9dff;
   box-shadow: black 1px 0 10px;
   width: 450px;
-  height: 750px;
+  height: 800px;
   margin: auto; /* Center horizontally */
   margin-top: 60px; /* Adjust top margin for vertical centering, consider the height of your navbar */
   padding: 10px;

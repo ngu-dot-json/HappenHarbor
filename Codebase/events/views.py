@@ -12,7 +12,17 @@ def about(request):
     return render(request, 'events/about.html', {})
 
 def account(request):
-    return render(request, 'events/account.html', {})
+    user = request.user  # Existing user object from authentication
+    user2 = None
+
+    if user.is_authenticated:
+        try:
+            user2 = User.objects.get(username=user.username)
+        except User.DoesNotExist:
+            pass
+
+    return render(request, 'events/account.html', {'user': user, 'user2': user2})
+
 
 def home(request):
     return render(request, 'events/home.html', {})
