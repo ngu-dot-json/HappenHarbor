@@ -11,8 +11,6 @@ class Affiliated(models.Model):
         db_table = 'Affiliated'
         unique_together = (('group_id', 'event'),)
 
-
-
 class ArrangesVendor(models.Model):
     v_name = models.OneToOneField('Vendors', models.DO_NOTHING, db_column='V_name', primary_key=True)  # Field name made lowercase. The composite primary key (V_name, Org_username) found, that is not supported. The first column is selected.
     org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
@@ -163,7 +161,6 @@ class User(models.Model):
 
     def set_password(self, force_pass):
         pass
-
 
     class Meta:
         managed = False

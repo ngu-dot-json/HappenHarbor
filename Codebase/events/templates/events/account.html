@@ -8,16 +8,13 @@
         <h2 class="welcome" className="WTitle"> Account Information</h2>
         {% if user.is_authenticated %}
             <p>Welcome, <strong>{{ user.username }}</strong>!</p>
-            <!-- Information from the default authentication user model -->
             
             {% if user2 %}
-                <!-- Additional information from the custom User model -->
                 <p>First Name: {{ user2.f_name }}</p>
                 <p>Middle Name: {{ user2.m_name }}</p>
                 <p>Last Name: {{ user2.l_name }}</p>
                 <p>Email: {{ user2.email }}</p>
                 <p>Birthday: {{ user2.birthday }}</p>
-                <!-- Add other fields as needed -->
             {% endif %}
 
             <br/><br/>

@@ -12,7 +12,7 @@ def about(request):
     return render(request, 'events/about.html', {})
 
 def account(request):
-    user = request.user  # Existing user object from authentication
+    user = request.user
     user2 = None
 
     if user.is_authenticated:
