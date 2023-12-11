@@ -161,6 +161,11 @@ class User(models.Model):
 
     USERNAME_FIELD = 'username'
 
+    def set_password(self, raw_pass):
+        # Implement password hashing logic here
+        pass
+
+
     class Meta:
         managed = False
         db_table = 'User'
