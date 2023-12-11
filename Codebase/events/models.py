@@ -1,6 +1,5 @@
 from django.db import models
-from PIL import Image
-from io import BytesIO
+
 import base64
 
 class Affiliated(models.Model):
@@ -12,15 +11,6 @@ class Affiliated(models.Model):
         db_table = 'Affiliated'
         unique_together = (('group_id', 'event'),)
 
-
-class ArrangesGuests(models.Model):
-    guest = models.OneToOneField('Guest', models.DO_NOTHING, db_column='Guest_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Guest_ID, Org_username) found, that is not supported. The first column is selected.
-    org_username = models.ForeignKey('User', models.DO_NOTHING, db_column='Org_username')  # Field name made lowercase.
-
-    class Meta:
-        managed = False
-        db_table = 'Arranges_Guests'
-        unique_together = (('guest', 'org_username'),)
 
 
 class ArrangesVendor(models.Model):
@@ -160,14 +150,16 @@ class Profile(models.Model):
 
 
 class User(models.Model):
-    username = models.CharField(db_column='Username', primary_key=True, max_length=255, db_comment='Username (req)')  # Field name made lowercase.
+    username = models.CharField(db_column='Username', max_length=255, db_comment='Username (req)')  # Field name made lowercase.
     f_name = models.CharField(db_column='F.name', max_length=255, db_comment='First Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     m_name = models.CharField(db_column='M.Name', max_length=255, blank=True, null=True, db_comment='Middle Name (opt)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
     l_name = models.CharField(db_column='L.Name', max_length=255, db_comment='Last Name (req)')  # Field name made lowercase. Field renamed to remove unsuitable characters.
-    email = models.CharField(db_column='Email', max_length=255, db_comment='Email (req)')  # Field name made lowercase.
+    email = models.CharField(db_column='Email', primary_key=True, max_length=255, db_comment='Email (req)')  # Field name made lowercase.
     birthday = models.DateField(db_column='Birthday', db_comment='Birthday (req)')  # Field name made lowercase.
     ord_flag = models.IntegerField(db_column='Ord_flag', blank=True, null=True, db_comment='Ord Flag? (opt)')  # Field name made lowercase.
     org_id = models.IntegerField(db_column='Org_ID', blank=True, null=True, db_comment='Org ID (opt)')  # Field name made lowercase.
+
+    USERNAME_FIELD = 'username'
 
     class Meta:
         managed = False
@@ -306,29 +298,3 @@ class DjangoSession(models.Model):
     class Meta:
         managed = False
         db_table = 'django_session'
-
-
-class YourModel(models.Model):
-    # ... your other fields ...
-
-    e_img = models.ImageField(upload_to='event_images/', blank=True, null=True)
-
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
-        if self.e_img:
-            img = Image.open(self.e_img.path)
-
-            # Set the desired size
-            new_size = (140, 100)
-
-            # Resize the image
-            img.thumbnail(new_size)
-
-            # Save the resized image back to the model field
-            img_io = BytesIO()
-            img.save(img_io, format='JPEG')  # You can change the format if needed
-            img_content = ContentFile(img_io.getvalue(), f'{self.e_img.name.split(".")[0]}_resized.jpg')
-            self.e_img.save(None, img_content, save=False)
-
-            super().save(*args, **kwargs)
