@@ -1,0 +1,71 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <center class="HH2">
+        <div class="center-container">
+            <h2>Attended Events</h2><br/>
+        </div>
+    </center>
+
+    <div class="center-container">
+        <form method="post" action="{% url 'clear_attended_events' %}">
+            {% csrf_token %}
+            <button class="btn-lg btn-danger" type="submit">Clear Attended Events</button>
+        </form>
+        <form method="get" action="{% url 'attended_events' %}">
+            <input class="dd_text" type="text" name="q" placeholder="Search...">
+            <select class="dd_test" name="search_field">
+                <option value="event_name">Event Name</option>
+                <option value="venue">Venue</option>
+                <option value="organizer">Organizer</option>
+                <option value="category">Category</option>
+                <option value="guest">Guests</option>
+            </select>
+            <button class="btn-lg btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+    <br/>
+
+    {% for attended_event in attended_events %}
+        {% with e=attended_event.event %}
+            <div class="card">
+                <div class="card-header">
+                    ({{ e.org_username.f_name }}) {{ e.e_name }}
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <h6 class="card-title"><b>Venue: </b> {{e.venue_add.l_name}} </h6>
+                            <h6 class="card-title2">{{e.venue_add.address}}, {{e.venue_add.city}}, {{e.venue_add.province_state}} </h6>
+                            <p class="card-text">
+                                {% if e.hasguests_set.exists %}
+                                    <strong>Guests:</strong>
+                                    {% for has_guests in e.hasguests_set.all %}
+                                        {{ has_guests.guest.g_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}<br/>
+                                {% endif %}
+                                {% load tz %}
+                                <strong>Date:</strong> {{ e.e_date|timezone:"America/Denver"|date:"Y-m-d H:i:s" }} MST <br/>
+                                <strong>Description:</strong> {{ e.e_desc }} <br/>
+                                <strong>Website:</strong> <u class="link"> {{ e.e_site }} </u><br/>
+                                {% if e.hasvendors_set.exists %}
+                                    <strong>Vendors:</strong>
+                                    {% for has_vendors in e.hasvendors_set.all %}
+                                        {{ has_vendors.v_name.c_name }}{% if not forloop.last %}, {% endif %}
+                                    {% endfor %}<br/>
+                                {% endif %}
+                            </p>
+                        </div>
+                        <div class="col-md-1">
+                            {% if e.e_img %}
+                                <img src="data:image/png;base64,{{ e.get_image|safe }}" alt="{{ e.e_name }}" style="width: 350px; height: 200px; margin-right: 10px; border: 4px solid #468bb3; border-radius: 5px;">                        
+                            {% endif %}
+                        </div>  
+                        <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
+                    </div>
+                </div>
+            </div>
+            <br/>
+        {% endwith %}
+    {% endfor %}
+{% endblock %}

@@ -1,0 +1,70 @@
+{% extends 'events/base.html' %}
+
+<style>
+    .scrollable-checkboxes {
+        max-height: 80px;
+        overflow-y: auto;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 10px;
+    }
+</style>
+
+{% block content %}
+    <center class="HH2">
+        <div class="center-container">
+            <h2>Add Event</h2><br/>
+        </div>
+
+        <div class="center-container">
+            <form method="post" action="{% url 'add_events' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <div class="form-group">
+                    <label for="{{ form.e_name.id_for_label }}">Event Name:</label>
+                    {{ form.e_name }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.venue_add.id_for_label }}">Venue:</label>
+                    {{ form.venue_add }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.e_site.id_for_label }}">Event Site:</label>
+                    {{ form.e_site }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.e_desc.id_for_label }}">Event Description:</label>
+                    {{ form.e_desc }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.e_date.id_for_label }}">Event Date:</label>
+                    {{ form.e_date }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.e_category.id_for_label }}">Event Category:</label>
+                    {{ form.e_category }}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.e_img.id_for_label }}">Event Image:</label>
+                    {{ form.e_img }}
+                </div>
+
+                <div class="border-box-3">
+                    Select Guests:
+                    <div style="overflow-y: scroll; max-height: 150px;">
+                        {{ form.guests }}
+                    </div>
+                </div>
+
+                <button class="btn-lg btn-primary" type="submit">Add Event</button>
+            </form>
+        </div>
+    </center>
+{% endblock %}
+

@@ -3,6 +3,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
+from django.db import connection
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -123,15 +124,12 @@ def signup(request):
         custom_form = CustomUserCreationForm(request.POST)
 
         if auth_form.is_valid() and custom_form.is_valid():
-            # Save user in the default auth_user table
             auth_user = auth_form.save()
 
-            # Create a user in the custom User table
             user = custom_form.save(commit=False)
             user.username = auth_user.username
             user.save()
 
-            # Authenticate and log in the user
             user_auth = authenticate(request, username=auth_user.username, password=auth_form.cleaned_data.get('password1'))
             login(request, user_auth)
 
@@ -174,6 +172,7 @@ def signin(request):
     else:
         return render(request, 'events/signin.html', {'form': AuthenticationForm()})
 
+
 def signout(request):
     logout(request)
     return redirect('/')
@@ -187,7 +186,6 @@ def add_venues(request):
         form = VenueForm(request.POST)
         if form.is_valid():
 
-            # Process the form data and set the owner before saving to the database
             venue = form.save(commit=False)
             user = request.user
             venue.l_owner = User.objects.get(username=user.username)
@@ -204,7 +202,6 @@ def add_guests(request):
         form = GuestForm(request.POST)
         if form.is_valid():
 
-            # setting the new guests' ID to the next available Guest ID
             highest_guest_id = Guest.objects.aggregate(max_id=models.Max('guest_id'))['max_id']
             next_guest_id = 1 if highest_guest_id is None else highest_guest_id + 1
             form.instance.guest_id = next_guest_id
@@ -215,8 +212,6 @@ def add_guests(request):
         form = GuestForm()
 
     return render(request, 'events/add_guests.html', {'form': form})
-
-
 
 
 def add_vendors(request):
@@ -267,15 +262,10 @@ def join_group(request, group_id):
         user = request.user
         group = get_object_or_404(UserGroups, group_id=group_id)
 
-        # Check if the user is already a member of the group
-
         user_info = User.objects.get(username=user.username)
-
         if not PartOf.objects.filter(group=group, username=user_info).exists():
-            # Add the user to the group
             PartOf.objects.create(group=group, username=user_info)
 
-    # Redirect back to the groups page
     return redirect('groups')
 
 
@@ -285,9 +275,86 @@ def leave_group(request, group_id):
 
     user_info = User.objects.get(username=user.username)
 
-    # Check if the user is a part of the group
     if PartOf.objects.filter(group=group, username=user_info).exists():
-        # Remove the user from the group
         PartOf.objects.filter(group=group, username=user_info).delete()
 
-    return redirect('groups')  # Redirect to the groups page after leaving the group
+    return redirect('groups')
+
+
+def add_events(request):
+    if request.method == 'POST':
+        form = AddEventForm(request.POST, request.FILES)
+        if form.is_valid():
+            user_info = User.objects.get(username=request.user.username)
+            form.instance.org_username = user_info
+
+            try:
+                highest_event_id = Events.objects.latest('event_id').event_id
+                next_event_id = highest_event_id + 1
+            except (Events.DoesNotExist, ValueError):
+                next_event_id = 1
+
+            form.instance.event_id = next_event_id
+            form.save()
+
+            selected_guests = form.cleaned_data.get('guests')
+            if selected_guests:
+                guest_ids = [guest.guest_id for guest in selected_guests]
+                event_id = form.instance.event_id
+
+                with connection.cursor() as cursor:
+                    for guest_id in guest_ids:
+                        cursor.execute(
+                            "INSERT INTO Has_Guests (Guest_ID, Event_ID) VALUES (%s, %s)",
+                            [guest_id, event_id]
+                        )
+            return redirect('events')
+    else:
+        form = AddEventForm()
+
+    guests = Guest.objects.all()
+    return render(request, 'events/add_events.html', {'form': form, 'guests': guests})
+
+
+def attended_events(request):
+    attended_events = Attends.objects.filter(u_username=request.user.username)
+    return render(request, 'events/attended_events.html', {'attended_events': attended_events})
+
+
+def attend_event(request, event_id):
+    event = Events.objects.get(event_id=event_id)
+    attended_event = Attends.objects.filter(u_username=request.user.username, event=event)
+    
+    if not attended_event.exists():
+        Attends.objects.create(u_username=request.user.username, event=event)
+
+    return render(request, 'events/attend_event.html')
+
+
+def clear_attended_events(request):
+    if request.method == 'POST':
+        Attends.objects.filter(u_username=request.user).delete()
+
+    return redirect('attended_events')
+
+
+def saved_events(request):
+    saved_events = Saved.objects.filter(u_username=request.user.username)
+    return render(request, 'events/saved_events.html', {'saved_events': saved_events})
+
+
+def save_event(request, event_id):
+    event = Events.objects.get(event_id=event_id)
+    saved_event = Saved.objects.filter(u_username=request.user.username, event=event)
+    
+    if not saved_event.exists():
+        Saved.objects.create(u_username=request.user.username, event=event)
+
+    return render(request, 'events/save_event.html')
+
+
+def clear_saved_events(request):
+    if request.method == 'POST':
+        Saved.objects.filter(u_username=request.user).delete()
+
+    return redirect('saved_events')

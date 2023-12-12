@@ -1,0 +1,12 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+    <center class="HH2">
+        <div class="container">
+            <h2>Event Attended!</h2>
+            <p>You have successfully attended the event.</p>
+            <a href="{% url 'events' %}" class="btn btn-primary">Back to Events</a>
+        </div>
+    </center>
+
+{% endblock %}
