@@ -4,14 +4,7 @@
 
 <div class="border-box-2">
   <center class="HH2">
-    <style>
-      body {
-        background-image: url('../../static/HF169.png');
-        background-attachment: fixed;
-        background-size: cover;
-      }
-    </style>
-
+    
     <h2 class="tester">Sign up</h2>
 
     <form method="post" style="text-align: center;">
@@ -39,7 +32,7 @@
 
       <div class="form-group">
         <label for="{{ custom_form.m_name.id_for_label }}">Middle Name (optional):</label>
-        <input type="text" name="{{ custom_form.m_name.name }}" id="{{ custom_form.m_name.id_for_label }}" class="form-control" style="width: 250px; margin: 0 auto;">
+        <input type="text" name="{{ custom_form.m_name.name }}" id="{{ custom_form.m_name.id_for_label }}" class="form-control" style="width: 250px; margin: 0 auto;" >
         {% for error in custom_form.m_name.errors %}
           <p style="color: red; font-size: 16px">Error: {{ error }}</p>
         {% endfor %}
