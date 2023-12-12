@@ -9,12 +9,10 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'f_name', 'm_name', 'l_name', 'email', 'birthday', 'password1', 'password2']
 
 
-
 class VenueForm(forms.ModelForm):
     class Meta:
         model = LocationsVenue
         fields = ['address', 'l_owner', 'l_name', 'city', 'province_state', 'country']
-
 
 
 class GuestForm(forms.ModelForm):
