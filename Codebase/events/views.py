@@ -214,7 +214,6 @@ def add_guests(request):
 
 
 
-
 def add_vendors(request):
     if request.method == 'POST':
         form = VendorForm(request.POST)
@@ -315,3 +314,28 @@ def add_events(request):
 
     guests = Guest.objects.all()
     return render(request, 'events/add_events.html', {'form': form, 'guests': guests})
+
+
+def attended_events(request):
+    attended_events = Attends.objects.filter(u_username=request.user.username)
+    return render(request, 'events/attended_events.html', {'attended_events': attended_events})
+
+
+def attend_event(request, event_id):
+    # Get the event
+    event = Events.objects.get(event_id=event_id)
+
+    # Check if the user has already attended this event
+    attended_event = Attends.objects.filter(u_username=request.user.username, event=event)
+    
+    if not attended_event.exists():
+        # If the user hasn't attended, add to Attends table
+        Attends.objects.create(u_username=request.user.username, event=event)
+
+    # Render the confirmation template
+    return render(request, 'events/attend_event.html')
+
+def remove_attended_event(request, event_id):
+    attended_event = get_object_or_404(Attends, u_username=request.user.username, event=event_id)
+    attended_event.delete()
+    return redirect('attended_events')

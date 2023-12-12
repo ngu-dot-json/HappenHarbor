@@ -1,5 +1,4 @@
 {% extends 'events/base.html' %}
-<!DOCTYPE html>
 
 {% block content %}
     <center class="HH2">
@@ -23,7 +22,6 @@
         </form>
     </div>
     <br/>
-
 
     {% for e in events %}
         <div class="card">
@@ -65,11 +63,9 @@
         </div>
         <br/>
 
-        {% if e.org_username == request.user.f_name %}
-            <form method="post" action="{% url 'remove_event' event_id=e.event_id %}">
-                {% csrf_token %}
-                <button type="submit" class="btn btn-danger">Remove Event</button>
-            </form>
-        {% endif %}
+        <form method="post" action="{% url 'attend_event' event_id=e.event_id %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary">Attend Event</button>
+        </form>
     {% endfor %}
 {% endblock %}

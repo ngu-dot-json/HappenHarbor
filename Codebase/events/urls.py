@@ -30,4 +30,7 @@ urlpatterns = [
     path('join_group/<int:group_id>/', views.join_group, name='join_group'),
     path('leave_group/<int:group_id>/', views.leave_group, name='leave_group'),
     path('add_events/', views.add_events, name='add_events'),
+    path('attended_events/', views.attended_events, name='attended_events'),
+    path('attend_event/<int:event_id>/', views.attend_event, name='attend_event'),
+    path('remove_attended_event/<int:event_id>/', views.remove_attended_event, name='remove_attended_event'),
 ]
