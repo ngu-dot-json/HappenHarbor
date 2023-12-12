@@ -344,3 +344,33 @@ def clear_attended_events(request):
 
     # Redirect to the attended events page
     return redirect('attended_events')
+
+def saved_events(request):
+    saved_events = Saved.objects.filter(u_username=request.user.username)
+    return render(request, 'events/saved_events.html', {'saved_events': saved_events})
+
+
+
+def save_event(request, event_id):
+    # Get the event
+    event = Events.objects.get(event_id=event_id)
+
+    # Check if the user has already saved this event
+    saved_event = Saved.objects.filter(u_username=request.user.username, event=event)
+    
+    if not saved_event.exists():
+        # If the user hasn't saved, add to Saved table
+        Saved.objects.create(u_username=request.user.username, event=event)
+
+    # Render the confirmation template
+    return render(request, 'events/save_event.html')
+
+
+def clear_saved_events(request):
+    # Ensure the request method is POST
+    if request.method == 'POST':
+        # Clear all saved events for the current user
+        Saved.objects.filter(u_username=request.user).delete()
+
+    # Redirect to the saved events page
+    return redirect('saved_events')

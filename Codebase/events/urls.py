@@ -32,4 +32,8 @@ urlpatterns = [
     path('add_events/', views.add_events, name='add_events'),
     path('attended_events/', views.attended_events, name='attended_events'),
     path('attend_event/<int:event_id>/', views.attend_event, name='attend_event'),
-    path('clear_attended_events/', views.clear_attended_events, name='clear_attended_events'),]
+    path('clear_attended_events/', views.clear_attended_events, name='clear_attended_events'),
+    path('saved_events/', views.saved_events, name='saved_events'),
+    path('save_event/<int:event_id>/', views.save_event, name='save_event'),
+    path('clear_saved_events/', views.clear_saved_events, name='clear_saved_events'),
+    ]
