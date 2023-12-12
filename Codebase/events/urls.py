@@ -28,4 +28,5 @@ urlpatterns = [
     path('guests', views.guests, name='guests'),
 
     path('add_venues', views.add_venues, name='add_venues'),
+    path('add_guests', views.add_guests, name='add_guests'),
 ]

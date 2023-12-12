@@ -6,7 +6,8 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
-from .forms import CustomUserCreationForm
+from .forms import *
+
 
 def about(request):
     return render(request, 'events/about.html', {})
@@ -179,13 +180,6 @@ def signout(request):
     return redirect('/')
 
 
-
-# views.py
-
-from django.shortcuts import render, redirect
-from .forms import VenueForm  # Import your VenueForm from forms.py
-from .models import LocationsVenue
-
 def add_venues(request):
     if not request.user.is_authenticated:
         return redirect('login')  # Redirect to your login page or handle authentication as needed
@@ -203,3 +197,23 @@ def add_venues(request):
         form = VenueForm()
 
     return render(request, 'events/add_venues.html', {'form': form})
+
+
+def add_guests(request):
+    if request.method == 'POST':
+        form = GuestForm(request.POST)
+        if form.is_valid():
+
+            # setting the new guests' ID to the next available Guest ID
+            highest_guest_id = Guest.objects.aggregate(max_id=models.Max('guest_id'))['max_id']
+            next_guest_id = 1 if highest_guest_id is None else highest_guest_id + 1
+            form.instance.guest_id = next_guest_id
+            form.save()
+            
+            return redirect('guests')  # Redirect to the guests page
+
+    else:
+        form = GuestForm()
+
+    return render(request, 'events/add_guests.html', {'form': form})
+

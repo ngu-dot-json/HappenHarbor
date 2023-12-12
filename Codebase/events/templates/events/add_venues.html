@@ -1,4 +1,3 @@
-<!-- events/templates/events/add_venues.html -->
 
 {% extends 'events/base.html' %}
 
@@ -38,7 +37,6 @@
           <input type="text" name="{{ form.country.name }}" id="{{ form.country.id_for_label }}" class="form-control" required>
         </div>
 
-        <!-- You can hide the l_owner field as it will be automatically set in the view -->
         <input type="hidden" name="{{ form.l_owner.name }}" id="{{ form.l_owner.id_for_label }}" value="{{ user.username }}">
 
         <br/>
