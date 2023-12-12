@@ -172,6 +172,7 @@ def signin(request):
     else:
         return render(request, 'events/signin.html', {'form': AuthenticationForm()})
 
+
 def signout(request):
     logout(request)
     return redirect('/')
@@ -211,7 +212,6 @@ def add_guests(request):
         form = GuestForm()
 
     return render(request, 'events/add_guests.html', {'form': form})
-
 
 
 def add_vendors(request):
@@ -322,55 +322,39 @@ def attended_events(request):
 
 
 def attend_event(request, event_id):
-    # Get the event
     event = Events.objects.get(event_id=event_id)
-
-    # Check if the user has already attended this event
     attended_event = Attends.objects.filter(u_username=request.user.username, event=event)
     
     if not attended_event.exists():
-        # If the user hasn't attended, add to Attends table
         Attends.objects.create(u_username=request.user.username, event=event)
 
-    # Render the confirmation template
     return render(request, 'events/attend_event.html')
 
 
 def clear_attended_events(request):
-    # Ensure the request method is POST
     if request.method == 'POST':
-        # Clear all attended events for the current user
         Attends.objects.filter(u_username=request.user).delete()
 
-    # Redirect to the attended events page
     return redirect('attended_events')
+
 
 def saved_events(request):
     saved_events = Saved.objects.filter(u_username=request.user.username)
     return render(request, 'events/saved_events.html', {'saved_events': saved_events})
 
 
-
 def save_event(request, event_id):
-    # Get the event
     event = Events.objects.get(event_id=event_id)
-
-    # Check if the user has already saved this event
     saved_event = Saved.objects.filter(u_username=request.user.username, event=event)
     
     if not saved_event.exists():
-        # If the user hasn't saved, add to Saved table
         Saved.objects.create(u_username=request.user.username, event=event)
 
-    # Render the confirmation template
     return render(request, 'events/save_event.html')
 
 
 def clear_saved_events(request):
-    # Ensure the request method is POST
     if request.method == 'POST':
-        # Clear all saved events for the current user
         Saved.objects.filter(u_username=request.user).delete()
 
-    # Redirect to the saved events page
     return redirect('saved_events')

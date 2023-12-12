@@ -15,7 +15,6 @@ urlpatterns = [
     path('about', views.about, name="about"),
     path('account', views.account, name="account"),
     path('groups', views.groups, name="groups"),
-    # path('admin', admin.site.urls),
     path('signin/',views.signin, name='signin'),
     path('signout/',views.signout, name='signout'),
     path('signup/',views.signup, name='signup'),
