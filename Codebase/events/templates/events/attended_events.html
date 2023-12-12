@@ -8,6 +8,10 @@
     </center>
 
     <div class="center-container">
+        <form method="post" action="{% url 'clear_attended_events' %}">
+            {% csrf_token %}
+            <button class="btn-lg btn-danger" type="submit">Clear Attended Events</button>
+        </form>
         <form method="get" action="{% url 'attended_events' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -60,12 +64,6 @@
                         <h6 class="s_events_id"> Category: "{{ e.e_category }}" | Event ID: {{ e.event_id }} </h6>
                     </div>
                 </div>
-
-                <!-- Remove Attended Event Form -->
-                <form method="post" action="{% url 'remove_attended_event' event_id=e.event_id %}">
-                    {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">Remove Attended Event</button>
-                </form>
             </div>
             <br/>
         {% endwith %}

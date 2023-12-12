@@ -335,7 +335,12 @@ def attend_event(request, event_id):
     # Render the confirmation template
     return render(request, 'events/attend_event.html')
 
-def remove_attended_event(request, event_id):
-    attended_event = get_object_or_404(Attends, u_username=request.user.username, event=event_id)
-    attended_event.delete()
+
+def clear_attended_events(request):
+    # Ensure the request method is POST
+    if request.method == 'POST':
+        # Clear all attended events for the current user
+        Attends.objects.filter(u_username=request.user).delete()
+
+    # Redirect to the attended events page
     return redirect('attended_events')
