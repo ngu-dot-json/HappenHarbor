@@ -31,6 +31,16 @@ class Attends(models.Model):
         unique_together = (('u_username', 'event'),)
 
 
+class Saved(models.Model):
+    u_username = models.CharField(db_column='U_username', primary_key=True, max_length=255)  # Field name made lowercase. The composite primary key (U_username, Event_ID) found, that is not supported. The first column is selected.
+    event = models.ForeignKey('Events', models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
+
+    class Meta:
+        managed = False
+        db_table = 'Saved'
+        unique_together = (('u_username', 'event'),)
+
+
 class Dates(models.Model):
     date_code = models.DateField(db_column='Date_Code', primary_key=True)  # Field name made lowercase.
     no_of_events = models.CharField(db_column='No_of_Events', max_length=255, blank=True, null=True)  # Field name made lowercase.
