@@ -28,3 +28,8 @@ class VendorForm(forms.ModelForm):
         model = Vendors
         fields = ['c_name', 'types_of_product', 'v_address', 'c_owner']
 
+
+class UserGroupForm(forms.ModelForm):
+    class Meta:
+        model = UserGroups
+        fields = ['ug_name', 'g_desc']

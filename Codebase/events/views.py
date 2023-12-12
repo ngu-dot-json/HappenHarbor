@@ -242,3 +242,22 @@ def add_vendors(request):
         form = VendorForm()
 
     return render(request, 'events/add_vendors.html', {'form': form})
+
+
+def add_groups(request):
+    if request.method == 'POST':
+        form = UserGroupForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            try:
+                user_info = User.objects.get(username=user.username)
+                user_group = form.save()
+                PartOf.objects.create(group=user_group, username=user_info)
+
+                return redirect('groups')
+            except User.DoesNotExist:
+                pass
+    else:
+        form = UserGroupForm()
+
+    return render(request, 'events/add_groups.html', {'form': form})

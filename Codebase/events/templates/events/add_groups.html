@@ -1,0 +1,35 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <center class="HH2">
+      <div class="center-container">
+        <h2>Add User Group</h2><br/>
+      </div>
+
+      <div class="center-container">
+        <form method="post" action="{% url 'add_groups' %}">
+          {% csrf_token %}
+
+          <div class="form-group">
+            <label for="{{ form.ug_name.id_for_label }}">User Group Name:</label>
+            <input type="text" name="{{ form.ug_name.name }}" id="{{ form.ug_name.id_for_label }}" class="form-control" required>
+          </div>
+
+          <div class="form-group">
+            <label for="{{ form.g_desc.id_for_label }}">Description:</label>
+            <input type="text" name="{{ form.g_desc.name }}" id="{{ form.g_desc.id_for_label }}" class="form-control" required>
+          </div>
+
+          <br/>
+
+          <button type="submit" class="btn-lg btn-success">Add User Group</button>
+        </form>
+      </div>
+    </center>
+  {% else %}
+    <div class="center-container">
+      <h2>Please log in to add user groups.</h2>
+    </div>
+  {% endif %}
+{% endblock %}

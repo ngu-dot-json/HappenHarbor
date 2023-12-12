@@ -11,6 +11,7 @@
     </center>
   
     <div class="center-container">
+        <a href="{% url 'add_groups' %}" class="btn-lg btn-primary">Add Group</a>
         <form method="get" action="{% url 'groups' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -20,6 +21,7 @@
             <button class="btn-lg btn-primary" type="submit">Search</button>
         </form>
     </div>
+
     <br/>
   
     {% for u in usergroups %}
