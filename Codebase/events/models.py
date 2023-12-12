@@ -72,6 +72,9 @@ class Guest(models.Model):
         managed = False
         db_table = 'Guest'
 
+    def __str__(self):
+        return self.g_name
+
 
 class HasGuests(models.Model):
     guest = models.ForeignKey(Guest, models.DO_NOTHING, db_column='Guest_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Guest_ID, Event_ID) found, that is not supported. The first column is selected.
@@ -124,6 +127,9 @@ class LocationsVenue(models.Model):
     class Meta:
         managed = False
         db_table = 'Locations_Venue'
+
+    def __str__(self):
+        return self.address
 
 
 class PartOf(models.Model):
