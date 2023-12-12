@@ -8,9 +8,8 @@
         </div>
     </center>
     
-
-    <!-- Make This Search Feature Actually Work -->
     <div class="center-container">
+        <a href="{% url 'add_events' %}" class="btn-lg btn-primary mx-1">Add Event</a>
         <form method="get" action="{% url 'events' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -25,13 +24,7 @@
     </div>
     <br/>
 
-    <!-- Add Event Button -->
-    <div class="center-container">
-        <a href="{% url 'add_events' %}" class="btn-lg btn-primary mx-1">Add Event</a>
-    </div>
-    <br/>
 
-    <!-- For Loop for All Events -->
     {% for e in events %}
         <div class="card">
             <div class="card-header">
@@ -72,8 +65,7 @@
         </div>
         <br/>
 
-        <!-- Add Remove Event Button -->
-        {% if e.org_username == request.user %}
+        {% if e.org_username == request.user.f_name %}
             <form method="post" action="{% url 'remove_event' event_id=e.event_id %}">
                 {% csrf_token %}
                 <button type="submit" class="btn btn-danger">Remove Event</button>
