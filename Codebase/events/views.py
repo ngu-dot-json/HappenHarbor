@@ -271,10 +271,23 @@ def join_group(request, group_id):
 
         user_info = User.objects.get(username=user.username)
 
-
         if not PartOf.objects.filter(group=group, username=user_info).exists():
             # Add the user to the group
             PartOf.objects.create(group=group, username=user_info)
 
     # Redirect back to the groups page
     return redirect('groups')
+
+
+def leave_group(request, group_id):
+    group = get_object_or_404(UserGroups, group_id=group_id)
+    user = request.user
+
+    user_info = User.objects.get(username=user.username)
+
+    # Check if the user is a part of the group
+    if PartOf.objects.filter(group=group, username=user_info).exists():
+        # Remove the user from the group
+        PartOf.objects.filter(group=group, username=user_info).delete()
+
+    return redirect('groups')  # Redirect to the groups page after leaving the group

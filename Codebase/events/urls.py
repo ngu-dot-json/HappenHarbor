@@ -28,4 +28,5 @@ urlpatterns = [
     path('add_vendors', views.add_vendors, name='add_vendors'),
     path('add_groups', views.add_groups, name='add_groups'),
     path('join_group/<int:group_id>/', views.join_group, name='join_group'),
+    path('leave_group/<int:group_id>/', views.leave_group, name='leave_group'),
 ]

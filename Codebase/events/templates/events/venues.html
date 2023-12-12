@@ -9,8 +9,7 @@
     </center>
   
     <div class="center-container">
-        <a href="{% url 'add_venues' %}" class="btn-lg btn-primary">Add Venue</a>
-        
+        <a href="{% url 'add_venues' %}" class="btn-lg btn-primary mx-1">Add Venue</a>
         <form method="get" action="{% url 'venues' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">

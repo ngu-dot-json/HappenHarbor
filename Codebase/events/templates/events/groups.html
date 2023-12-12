@@ -10,7 +10,7 @@
     </center>
   
     <div class="center-container">
-        <a href="{% url 'add_groups' %}" class="btn-lg btn-primary">Add Group</a>
+        <a href="{% url 'add_groups' %}" class="btn-lg btn-primary mx-1">Create Group</a>
         <form method="get" action="{% url 'groups' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -27,10 +27,13 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 {{ u.ug_name }}
                 {% if user.is_authenticated %}
-                    <form method="post" action="{% url 'join_group' group_id=u.group_id %}">
-                        {% csrf_token %}
-                        <button type="submit" class="btn btn-success ml-auto">Join Group</button>
-                    </form>
+                    <div class="ml-auto">
+                        <form method="post" action="{% url 'leave_group' group_id=u.group_id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Leave Group</button>
+                            <button type="submit" class="btn btn-success ml-2">Join Group</button>
+                        </form>
+                    </div>
                 {% endif %}
             </div>
             <div class="card-body">
