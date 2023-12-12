@@ -169,6 +169,7 @@ class User(models.Model):
 class UserGroups(models.Model):
     group_id = models.AutoField(db_column='Group_ID', primary_key=True)  # Field name made lowercase.
     ug_name = models.CharField(db_column='UG_Name', max_length=255)  # Field name made lowercase.
+    g_desc = models.CharField(db_column='g_desc', max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False

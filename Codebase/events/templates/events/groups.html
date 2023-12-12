@@ -28,6 +28,7 @@
                 {{ u.ug_name }}
             </div>
             <div class="card-body">
+                <strong>Description:</strong> {{ u.g_desc }} <br/>
                 <strong>Members:</strong>
                 {% for part_of in u.partof_set.all %}
                     {{ part_of.username.username }}{% if not forloop.last %}, {% endif %}
