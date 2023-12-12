@@ -1,9 +1,8 @@
 # The default sign in, sign out and register system was adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag
 
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from .forms import *
 from .models import *
@@ -261,3 +260,21 @@ def add_groups(request):
         form = UserGroupForm()
 
     return render(request, 'events/add_groups.html', {'form': form})
+
+
+def join_group(request, group_id):
+    if request.user.is_authenticated:
+        user = request.user
+        group = get_object_or_404(UserGroups, group_id=group_id)
+
+        # Check if the user is already a member of the group
+
+        user_info = User.objects.get(username=user.username)
+
+
+        if not PartOf.objects.filter(group=group, username=user_info).exists():
+            # Add the user to the group
+            PartOf.objects.create(group=group, username=user_info)
+
+    # Redirect back to the groups page
+    return redirect('groups')
