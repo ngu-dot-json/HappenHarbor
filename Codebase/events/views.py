@@ -1,12 +1,12 @@
 # The default sign in, sign out and register system was adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag
 
-from .models import *
 from django.shortcuts import render, redirect
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
 from .forms import *
+from .models import *
 
 
 def about(request):
@@ -165,7 +165,7 @@ def signin(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('/account')  # Redirect to profile or desired page
+                return redirect('/account')
             else:
                 msg = 'Sign In Error'
                 return render(request, 'events/signin.html', {'msg': msg})
@@ -182,17 +182,18 @@ def signout(request):
 
 def add_venues(request):
     if not request.user.is_authenticated:
-        return redirect('login')  # Redirect to your login page or handle authentication as needed
+        return redirect('login')
 
     if request.method == 'POST':
         form = VenueForm(request.POST)
         if form.is_valid():
+
             # Process the form data and set the owner before saving to the database
             venue = form.save(commit=False)
             user = request.user
             venue.l_owner = User.objects.get(username=user.username)
             venue.save()
-            return redirect('venues')  # Redirect to the venues page or wherever you want to go after adding a venue
+            return redirect('venues')
     else:
         form = VenueForm()
 
@@ -210,10 +211,34 @@ def add_guests(request):
             form.instance.guest_id = next_guest_id
             form.save()
             
-            return redirect('guests')  # Redirect to the guests page
-
+            return redirect('guests')
     else:
         form = GuestForm()
 
     return render(request, 'events/add_guests.html', {'form': form})
 
+
+
+
+def add_vendors(request):
+    if request.method == 'POST':
+        form = VendorForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            vendors = form.save(commit=False)
+            user = request.user
+            userObj = User.objects.get(username=user.username)
+
+            use = str(userObj.username)
+            fnm = str(userObj.f_name)
+            lnm = str(userObj.l_name)
+
+            vendors.c_owner = fnm + " \"" + use + "\" "+ lnm
+            vendors.save()
+
+            return redirect('vendors')
+    else:
+        form = VendorForm()
+
+    return render(request, 'events/add_vendors.html', {'form': form})

@@ -1,7 +1,7 @@
 # events/forms.py
 from django import forms
+from .models import *
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
 
 class CustomUserCreationForm(UserCreationForm):
     class Meta:
@@ -9,8 +9,6 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ['username', 'f_name', 'm_name', 'l_name', 'email', 'birthday', 'password1', 'password2']
 
 
-from django import forms
-from .models import LocationsVenue
 
 class VenueForm(forms.ModelForm):
     class Meta:
@@ -18,10 +16,15 @@ class VenueForm(forms.ModelForm):
         fields = ['address', 'l_owner', 'l_name', 'city', 'province_state', 'country']
 
 
-from django import forms
-from .models import Guest
 
 class GuestForm(forms.ModelForm):
     class Meta:
         model = Guest
         fields = ['g_type', 'g_name', 'g_info']
+
+
+class VendorForm(forms.ModelForm):
+    class Meta:
+        model = Vendors
+        fields = ['c_name', 'types_of_product', 'v_address', 'c_owner']
+
