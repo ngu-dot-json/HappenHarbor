@@ -2,55 +2,48 @@
 <!DOCTYPE html>
 
 {% block content %}
-
-    <center class="HH2">
-                
-        <div class="center-container">
-            
-        <h2>Find Guests</h2><br/>
-    </center>
-  
+  <center class="HH2">
     <div class="center-container">
+      <h2>Find Guests</h2><br/>
+    </div>
+  </center>
+
+  <div class="center-container">
+    <a href="{% url 'add_guests' %}" class="btn-lg btn-primary mx-1">Add Guest</a>
+
     <form method="get" action="{% url 'guests' %}">
-        <input class="dd_text" type="text" name="q" placeholder="Search...">
-        <select class="dd_test" name="search_field">
-            <option value="g_name">Guest Name</option>
-            <option value="g_type">Guest Type</option>
-            <option value="attending">Guest Events</option>
-
-        </select>
-        <button class="btn-lg btn-primary" type="submit">Search</button>
+      <input class="dd_text" type="text" name="q" placeholder="Search...">
+      <select class="dd_test" name="search_field">
+        <option value="g_name">Guest Name</option>
+        <option value="g_type">Guest Type</option>
+        <option value="attending">Guest Events</option>
+      </select>
+      <button class="btn-lg btn-primary" type="submit">Search</button>
     </form>
-    </div>
-  
-    <br/>
-  
-    {% for g in guests %}
+  </div>
+
+  <br/>
+
+  {% for g in guests %}
     <div class="card">
-        <div class="card-header">
-            {{ g.g_name }}
-        </div>
-        <div class="card-body">
-            <h6 class="card-title"><b>Type: </b> {{ g.g_type }} </h6>
-            <p class="card-text">
-                <ul>
-                    <strong>Description:</strong> {{ g.g_info }} <br/>
-                    <br/>
-                    <strong>Events:</strong>
-                    {% for has_guests in g.hasguests_set.all %}
-                        {{ has_guests.event.e_name }} ({{has_guests.event.e_date}}){% if not forloop.last %}, {% endif %}
-                    {% endfor %}
-                </ul>
-                <h6 class="s_events_id"> Guest ID: {{ g.guest_id }} </h6>
-            </p>
-        </div>
+      <div class="card-header">
+        {{ g.g_name }}
+      </div>
+      <div class="card-body">
+        <h6 class="card-title"><b>Type: </b> {{ g.g_type }} </h6>
+        <p class="card-text">
+          <ul>
+            <strong>Description:</strong> {{ g.g_info }} <br/>
+            <br/>
+            <strong>Events:</strong>
+            {% for has_guests in g.hasguests_set.all %}
+              {{ has_guests.event.e_name }} ({{has_guests.event.e_date}}){% if not forloop.last %}, {% endif %}
+            {% endfor %}
+          </ul>
+          <h6 class="s_events_id"> Guest ID: {{ g.guest_id }} </h6>
+        </p>
+      </div>
     </div>
     <br/>
-{% endfor %}
-
-  
-
+  {% endfor %}
 {% endblock %}
-
-
-

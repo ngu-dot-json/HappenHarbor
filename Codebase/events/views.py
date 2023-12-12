@@ -1,12 +1,12 @@
 # The default sign in, sign out and register system was adapted from: https://www.youtube.com/watch?v=6WnL0VHtPag
 
-from .models import *
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.forms import AuthenticationForm
 from django.db.models import Q
-from .forms import CustomUserCreationForm
+from .forms import *
+from .models import *
+
 
 def about(request):
     return render(request, 'events/about.html', {})
@@ -164,7 +164,7 @@ def signin(request):
 
             if user is not None:
                 login(request, user)
-                return redirect('/account')  # Redirect to profile or desired page
+                return redirect('/account')
             else:
                 msg = 'Sign In Error'
                 return render(request, 'events/signin.html', {'msg': msg})
@@ -177,3 +177,117 @@ def signin(request):
 def signout(request):
     logout(request)
     return redirect('/')
+
+
+def add_venues(request):
+    if not request.user.is_authenticated:
+        return redirect('login')
+
+    if request.method == 'POST':
+        form = VenueForm(request.POST)
+        if form.is_valid():
+
+            # Process the form data and set the owner before saving to the database
+            venue = form.save(commit=False)
+            user = request.user
+            venue.l_owner = User.objects.get(username=user.username)
+            venue.save()
+            return redirect('venues')
+    else:
+        form = VenueForm()
+
+    return render(request, 'events/add_venues.html', {'form': form})
+
+
+def add_guests(request):
+    if request.method == 'POST':
+        form = GuestForm(request.POST)
+        if form.is_valid():
+
+            # setting the new guests' ID to the next available Guest ID
+            highest_guest_id = Guest.objects.aggregate(max_id=models.Max('guest_id'))['max_id']
+            next_guest_id = 1 if highest_guest_id is None else highest_guest_id + 1
+            form.instance.guest_id = next_guest_id
+            form.save()
+            
+            return redirect('guests')
+    else:
+        form = GuestForm()
+
+    return render(request, 'events/add_guests.html', {'form': form})
+
+
+
+
+def add_vendors(request):
+    if request.method == 'POST':
+        form = VendorForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            vendors = form.save(commit=False)
+            user = request.user
+            userObj = User.objects.get(username=user.username)
+
+            use = str(userObj.username)
+            fnm = str(userObj.f_name)
+            lnm = str(userObj.l_name)
+
+            vendors.c_owner = fnm + " \"" + use + "\" "+ lnm
+            vendors.save()
+
+            return redirect('vendors')
+    else:
+        form = VendorForm()
+
+    return render(request, 'events/add_vendors.html', {'form': form})
+
+
+def add_groups(request):
+    if request.method == 'POST':
+        form = UserGroupForm(request.POST)
+        if form.is_valid():
+            user = request.user
+            try:
+                user_info = User.objects.get(username=user.username)
+                user_group = form.save()
+                PartOf.objects.create(group=user_group, username=user_info)
+
+                return redirect('groups')
+            except User.DoesNotExist:
+                pass
+    else:
+        form = UserGroupForm()
+
+    return render(request, 'events/add_groups.html', {'form': form})
+
+
+def join_group(request, group_id):
+    if request.user.is_authenticated:
+        user = request.user
+        group = get_object_or_404(UserGroups, group_id=group_id)
+
+        # Check if the user is already a member of the group
+
+        user_info = User.objects.get(username=user.username)
+
+        if not PartOf.objects.filter(group=group, username=user_info).exists():
+            # Add the user to the group
+            PartOf.objects.create(group=group, username=user_info)
+
+    # Redirect back to the groups page
+    return redirect('groups')
+
+
+def leave_group(request, group_id):
+    group = get_object_or_404(UserGroups, group_id=group_id)
+    user = request.user
+
+    user_info = User.objects.get(username=user.username)
+
+    # Check if the user is a part of the group
+    if PartOf.objects.filter(group=group, username=user_info).exists():
+        # Remove the user from the group
+        PartOf.objects.filter(group=group, username=user_info).delete()
+
+    return redirect('groups')  # Redirect to the groups page after leaving the group

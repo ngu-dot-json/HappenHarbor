@@ -1,5 +1,4 @@
 from django.db import models
-
 import base64
 
 class Affiliated(models.Model):
@@ -64,10 +63,10 @@ class Events(models.Model):
 
 
 class Guest(models.Model):
-    guest_id = models.IntegerField(db_column='Guest_ID', primary_key=True)  # Field name made lowercase.
-    g_type = models.CharField(db_column='G_Type', max_length=255)  # Field name made lowercase.
-    g_name = models.CharField(db_column='G_name', max_length=255)  # Field name made lowercase.
-    g_info = models.TextField(db_column='G_info')  # Field name made lowercase.
+    guest_id = models.AutoField(db_column='Guest_ID', primary_key=True)  # Auto-incrementing primary key
+    g_type = models.CharField(db_column='G_Type', max_length=255)
+    g_name = models.CharField(db_column='G_name', max_length=255)
+    g_info = models.TextField(db_column='G_info')
 
     class Meta:
         managed = False
@@ -170,6 +169,7 @@ class User(models.Model):
 class UserGroups(models.Model):
     group_id = models.AutoField(db_column='Group_ID', primary_key=True)  # Field name made lowercase.
     ug_name = models.CharField(db_column='UG_Name', max_length=255)  # Field name made lowercase.
+    g_desc = models.CharField(db_column='g_desc', max_length=255)  # Field name made lowercase.
 
     class Meta:
         managed = False

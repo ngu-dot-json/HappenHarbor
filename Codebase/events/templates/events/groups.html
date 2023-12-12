@@ -4,13 +4,13 @@
 {% block content %}
 
     <center class="HH2">
-                
         <div class="center-container">
-        
-        <h2>Find User Groups</h2><br/>
+            <h2>Find User Groups</h2><br/>
+        </div>
     </center>
   
     <div class="center-container">
+        <a href="{% url 'add_groups' %}" class="btn-lg btn-primary mx-1">Create Group</a>
         <form method="get" action="{% url 'groups' %}">
             <input class="dd_text" type="text" name="q" placeholder="Search...">
             <select class="dd_test" name="search_field">
@@ -24,10 +24,20 @@
   
     {% for u in usergroups %}
         <div class="card">
-            <div class="card-header">
+            <div class="card-header d-flex justify-content-between align-items-center">
                 {{ u.ug_name }}
+                {% if user.is_authenticated %}
+                    <div class="ml-auto">
+                        <form method="post" action="{% url 'leave_group' group_id=u.group_id %}">
+                            {% csrf_token %}
+                            <button type="submit" class="btn btn-danger">Leave Group</button>
+                            <button type="submit" class="btn btn-success ml-2">Join Group</button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
             <div class="card-body">
+                <strong>Description:</strong> {{ u.g_desc }} <br/>
                 <strong>Members:</strong>
                 {% for part_of in u.partof_set.all %}
                     {{ part_of.username.username }}{% if not forloop.last %}, {% endif %}

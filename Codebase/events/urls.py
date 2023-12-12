@@ -1,9 +1,5 @@
 from django.urls import path
-# from django.contrib import admin
 from . import views
-
-from django.urls import path
-# from .views import ChangePasswordView, ChangeUsernameView
 
 
 urlpatterns = [
@@ -26,4 +22,11 @@ urlpatterns = [
     path('venues/', views.venues, name='venues'),
     path('vendors/', views.vendors, name='vendors'),
     path('guests', views.guests, name='guests'),
+
+    path('add_venues', views.add_venues, name='add_venues'),
+    path('add_guests', views.add_guests, name='add_guests'),
+    path('add_vendors', views.add_vendors, name='add_vendors'),
+    path('add_groups', views.add_groups, name='add_groups'),
+    path('join_group/<int:group_id>/', views.join_group, name='join_group'),
+    path('leave_group/<int:group_id>/', views.leave_group, name='leave_group'),
 ]

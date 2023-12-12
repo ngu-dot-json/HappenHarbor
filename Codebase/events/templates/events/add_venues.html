@@ -1,0 +1,54 @@
+
+{% extends 'events/base.html' %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+    <center class="HH2">
+      <div class="center-container">
+        <h2>Add Venue</h2><br/>
+      </div>
+
+    <div class="center-container">
+      <form method="post" action="{% url 'add_venues' %}">
+        {% csrf_token %}
+
+        <div class="form-group">
+          <label for="{{ form.address.id_for_label }}">Address:</label>
+          <input type="text" name="{{ form.address.name }}" id="{{ form.address.id_for_label }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.l_name.id_for_label }}">Venue Name:</label>
+          <input type="text" name="{{ form.l_name.name }}" id="{{ form.l_name.id_for_label }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.city.id_for_label }}">City:</label>
+          <input type="text" name="{{ form.city.name }}" id="{{ form.city.id_for_label }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.province_state.id_for_label }}">Province/State:</label>
+          <input type="text" name="{{ form.province_state.name }}" id="{{ form.province_state.id_for_label }}" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="{{ form.country.id_for_label }}">Country:</label>
+          <input type="text" name="{{ form.country.name }}" id="{{ form.country.id_for_label }}" class="form-control" required>
+        </div>
+
+        <input type="hidden" name="{{ form.l_owner.name }}" id="{{ form.l_owner.id_for_label }}" value="{{ user.username }}">
+
+        <br/>
+
+        <button type="submit" class="btn-lg btn-success">Add Venue</button>
+      </form>
+    </div>
+  {% else %}
+    <div class="center-container">
+      <h2>Please log in to add venues.</h2>
+    </div>
+  {% endif %}
+</center>
+
+{% endblock %}
