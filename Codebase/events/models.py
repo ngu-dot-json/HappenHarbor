@@ -1,6 +1,7 @@
 from django.db import models
 import base64
 
+
 class Affiliated(models.Model):
     group_id = models.IntegerField(db_column='Group_ID', primary_key=True)  # Field name made lowercase. The composite primary key (Group_ID, Event_ID) found, that is not supported. The first column is selected.
     event = models.ForeignKey('Events', models.DO_NOTHING, db_column='Event_ID')  # Field name made lowercase.
@@ -9,6 +10,7 @@ class Affiliated(models.Model):
         managed = False
         db_table = 'Affiliated'
         unique_together = (('group_id', 'event'),)
+
 
 class ArrangesVendor(models.Model):
     v_name = models.OneToOneField('Vendors', models.DO_NOTHING, db_column='V_name', primary_key=True)  # Field name made lowercase. The composite primary key (V_name, Org_username) found, that is not supported. The first column is selected.

@@ -38,6 +38,7 @@ class EventForm(forms.ModelForm):
         model = Events
         fields = '__all__'
 
+
 class AddEventForm(forms.ModelForm):
     guests = forms.ModelMultipleChoiceField(
         queryset=Guest.objects.all(),
