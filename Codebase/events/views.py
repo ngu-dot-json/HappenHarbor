@@ -7,8 +7,12 @@ from django.db import connection
 from django.db.models import Q
 from .forms import *
 from .models import *
+from django.contrib.auth.views import PasswordResetCompleteView
 
+class CustomPasswordResetCompleteView(PasswordResetCompleteView):
+    template_name = 'registration/password_reset_complete.html'
 
+    
 def about(request):
     return render(request, 'events/about.html', {})
 
@@ -129,7 +133,7 @@ def signup(request):
             user = custom_form.save(commit=False)
             user.username = auth_user.username
             user.save()
-
+            
             user_auth = authenticate(request, username=auth_user.username, password=auth_form.cleaned_data.get('password1'))
             login(request, user_auth)
 

@@ -153,3 +153,15 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Also Make aure To set allowed_hosts to '*'
 
 ALLOWED_HOSTS = ['*']
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# SMTP Server settings
+EMAIL_HOST = 'smtp.gmail.com'  # Replace with your SMTP server's address
+EMAIL_PORT = 587  # Replace with the appropriate port
+EMAIL_USE_TLS = True  # Use TLS (True/False depending on your server's requirements)
+
+# Authentication credentials for your SMTP server
+EMAIL_HOST_USER = 'happenharbor@gmail.com'  # Replace with your email address
+EMAIL_HOST_PASSWORD = 'byxi wfyv hzef dvlp'  # Replace with your email password
