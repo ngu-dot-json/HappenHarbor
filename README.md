@@ -7,8 +7,11 @@ Just by taking a walk around campus, it is easy to find clubs, sports teams, and
 
 Current HappenHarbor Features:
 
-- Ability to create a secure, SQL-injection-protected account for database related functionality.
+- Ability to create a secure, SQL-injection-protected account for database-related functionality.
 - Ability to sort, select, create, attend and save events
 - Ability to sort, select, create venues
 - Ability to sort, select, create vendors
 - Ability to sort, select, create guests
+- And More!
+
+  HappenHarbor is still in its development and implementation phase. Core functionality has been completed but minor updates and QOL is pending.
